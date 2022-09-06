@@ -45,4 +45,4 @@ def all_partidas():
 
 @app.route('/selecoes/partidas/<id_partida>', methods=['POST'])
 def definir_resultado(id_partida):
-    return render_template('definir_resultado.html')
+    return render_template('definir_resultado.html', )
