@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <h5>Adicionar Partidas</h5>
+    </div>
+    <form action="" method="post">
+        {% formaddpartida.csrf_token %}
+        <div class="row">
+            <div class="col-12">
+                {{ formaddpartida.selecao_casa.label(class="form-label", for="selecao_casa") }}
+                {{ formaddpartida.selecao_casa(class="form-control", id="selecao_casa") }}
+            </div>
+            <div class="col-12">
+                {{ formaddpartida.selecao_forta.label(class="form-label", for="selecao_forta") }}
+                {{ formaddpartida.selecao_forta(class="form-control", id="selecao_forta") }}
+            </div>
+            <div class="col-12">
+                {{ formaddpartida.btn_submit(class="btn btn-primary") }}
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
