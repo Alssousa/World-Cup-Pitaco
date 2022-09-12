@@ -1,16 +1,16 @@
 # Faculdade Facimp
 
 ##### Disciplina: Analise Orientada a Objeto
-##### Professor: [Paulo Henrique](https://github.com)
+##### Professor: [Paulo Henrique]([https://github.com](https://github.com/agenteph))
 
 ### Um pouco sobre nosso projeto:
 ![]<img src="https://jpimg.com.br/uploads/2021/10/fifa_divulga_o_logotipo_oficial_da_copa_do_mundo_de_2022_no_catar_0.jpg" width="600" height="400">
 
-World Cup Pitaco tem o objetivo de acompanhar os placares da copa do mundo 2022 no catar, assim tambem com palpitar sobre os resultados dos mesmos.  
+World Cup Pitaco tem o objetivo de acompanhar os placares da copa do mundo 2022 no Qatar, assim tambem com palpitar sobre os resultados dos mesmos.  
 
 
 
-Confira a [wiki]() para mais detalhes do projeto.
+Confira a [wiki](https://github.com/Alssousa/World-Cup-Pitaco/wiki) para mais detalhes do projeto.
 
 
 <h3 align="center"> Colaboradores:</h3>
