@@ -19,6 +19,7 @@ Confira a [wiki](https://github.com/Alssousa/World-Cup-Pitaco/wiki) para mais de
   <tr>
     <td align="center"><a href="https://github.com/Alssousa"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/108706999?v=4" width="100px;" alt=""/><br /><sub><b>Alexandre </b></sub></a><br /></td>
    <td align="center"><a href="https://github.com/hygorr23"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/65869986?v=4" width="100px;" alt=""/><br /><sub><b>Igor Rodrigues</b></sub></a><br /></td>
+   <td align="center"><a href="https://github.com/isaquesil"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/72052275?v=4" width="100px;" alt=""/><br /><sub><b>Isaque Silva</b></sub></a><br /></td>
   </tr>
  
 </table>
