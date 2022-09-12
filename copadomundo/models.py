@@ -67,8 +67,8 @@ class Selecao(database.Model):
 class Partida(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     descricao = database.Column(database.String, nullable=False)
-    gol_casa = database.Column(database.Integer)
-    gol_fora = database.Column(database.Integer)
+    gol_casa = database.Column(database.Integer, default=0)
+    gol_fora = database.Column(database.Integer, default=0)
     data_partida = database.Column(database.DateTime, default=datetime.utcnow)
 
 
