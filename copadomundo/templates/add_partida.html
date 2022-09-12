@@ -2,22 +2,28 @@
 
 {% block body %}
 <div class="container">
-    <div class="row">
-        <h5>Adicionar Partidas</h5>
-    </div>
     <form action="" method="post">
-        {% formaddpartida.csrf_token %}
-        <div class="row">
-            <div class="col-12">
-                {{ formaddpartida.selecao_casa.label(class="form-label", for="selecao_casa") }}
-                {{ formaddpartida.selecao_casa(class="form-control", id="selecao_casa") }}
-            </div>
-            <div class="col-12">
-                {{ formaddpartida.selecao_forta.label(class="form-label", for="selecao_forta") }}
-                {{ formaddpartida.selecao_forta(class="form-control", id="selecao_forta") }}
-            </div>
-            <div class="col-12">
-                {{ formaddpartida.btn_submit(class="btn btn-primary") }}
+        {{ formaddpartida.csrf_token }}
+        <div class="row justify-content-center border border-1 rounded-2">
+            <div class="col-6 p-4">
+                <div class="row mb-4">
+                    <h4>Adicionar Partidas</h4>
+                </div>
+                <div class="col-12 mb-3">
+                    {{ formaddpartida.selecao_casa.label(class="form-label", for="selecao_casa") }}
+                    {{ formaddpartida.selecao_casa(class="form-control", id="selecao_casa") }}
+                </div>
+                <div class="col-12 mb-3">
+                    {{ formaddpartida.selecao_fora.label(class="form-label", for="selecao_forta") }}
+                    {{ formaddpartida.selecao_fora(class="form-control", id="selecao_forta") }}
+                </div>
+                <div class="col-12 mb-5">
+                    {{ formaddpartida.data_partida.label(class="form-label", for="selecao_forta") }}
+                    {{ formaddpartida.data_partida(class="form-control", id="selecao_forta") }}
+                </div>
+                <div class="col-12">
+                    {{ formaddpartida.btn_submit(class="btn btn-primary") }}
+                </div>
             </div>
         </div>
     </form>
