@@ -4,7 +4,7 @@
 ##### Professor: [Paulo Henrique](https://github.com)
 
 ### Um pouco sobre nosso projeto:
-![](https://jpimg.com.br/uploads/2021/10/fifa_divulga_o_logotipo_oficial_da_copa_do_mundo_de_2022_no_catar_0.jpg)width="300px;"
+![]<img src="https://jpimg.com.br/uploads/2021/10/fifa_divulga_o_logotipo_oficial_da_copa_do_mundo_de_2022_no_catar_0.jpg" width="400" height="790">
 
 World Cup Pitaco tem o objetivo de acompanhar os placares da copa do mundo 2022 no catar, assim tambem com palpitar sobre os resultados dos mesmos.  
 
