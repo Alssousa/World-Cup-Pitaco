@@ -27,7 +27,12 @@ def add_usuario():
 
 @app.route('/usuario/login', methods=['POST'])
 def login():
-    return render_template('login.html')
+    return render_template('tela_login.html')
+
+
+@app.route('/usuario/cadastro', methods=['POST'])
+def cadastro():
+    return render_template('tela_cad.html')
 
 
 @app.route('/liga/ranking')
