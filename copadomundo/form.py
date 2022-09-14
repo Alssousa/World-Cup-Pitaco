@@ -10,3 +10,13 @@ class FormAddPartida(FlaskForm):
     data_partida = DateField('Data da Partida', validators=[DataRequired()])
     btn_submit = SubmitField('Adicionar')
 
+class FormCadastro(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    password = StringField('Password', validators=[DataRequired()])
+    btn_submit = SubmitField('Cadastrar')
+    
+class FormLogin(FlaskForm):
+    email = StringField('Email', validators=[DataRequired()])
+    password = StringField('Password', validators=[DataRequired()])
+    btn_submit = SubmitField('Login')

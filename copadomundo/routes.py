@@ -1,7 +1,7 @@
 from copadomundo import app, bcrypt, database
 from flask import request, render_template, redirect, url_for
 from copadomundo.models import Usuario, Partida, Selecao, Palpite
-from copadomundo.form import FormAddPartida
+from copadomundo.form import FormAddPartida, FormCadastro, FormLogin
 
 
 @app.route('/')
@@ -9,11 +9,12 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/usuario/novaconta', methods=['POST'])
+@app.route('/usuario/novaconta', methods=['GET', 'POST'])
 def add_usuario():
-    username = request.form.get("username")
-    email = request.form.get("email")
-    senha = request.form.get("senha")
+    formcadastro = FormCadastro()
+    username = formcadastro.username.data
+    email = formcadastro.email.data
+    senha = formcadastro.password.data
 
     if username and email and senha:
         if not Usuario.query.filter_by(email=email).first():
@@ -21,12 +22,25 @@ def add_usuario():
             database.session.add(user)
             database.session.commit()
             return redirect(url_for('home'))
+    else:
+        print("Email já esta em uso!")
+        return redirect(url_for('add_usuario'))
 
     return render_template('tela_cad.html')
 
 
-@app.route('/usuario/login', methods=['POST'])
+@app.route('/usuario/login', methods=['GET', 'POST'])
 def login():
+    formlogin = FormLogin()
+    email = formlogin.email.data
+    password = formlogin.password.data
+    if email and password:
+        if Usuario.quert.filter_by(email=email, password=password).first():
+            print("Login successful!")
+            return redirect(url_for('home'))
+        else:
+            print("Login failed!")
+            return redirect(url_for('login'))
     return render_template('tela_login.html')
 
 
