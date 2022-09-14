@@ -22,17 +22,13 @@ def add_usuario():
             database.session.commit()
             return redirect(url_for('home'))
 
-    return render_template('cadastro.html')
+    return render_template('tela_cad.html')
 
 
 @app.route('/usuario/login', methods=['POST'])
 def login():
     return render_template('tela_login.html')
 
-
-@app.route('/usuario/cadastro', methods=['POST'])
-def cadastro():
-    return render_template('tela_cad.html')
 
 
 @app.route('/liga/ranking')
