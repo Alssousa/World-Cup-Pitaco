@@ -1,1 +1,101 @@
-body {}
+
+
+
+body{
+    background-color:  #730e2e;
+    background-image: url(/copadomundo/templates/img/fundo\ 2.jpg);
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.back{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(202, 209, 202, 0.7);
+    backdrop-filter: blur(12px);
+    width: 320px;
+    height: 400px;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 2px 2px 20px black;
+
+    
+}
+
+.login input{
+    border:none;
+    border-radius: 5px;
+    padding-left: 15px;
+    height: 45px;
+    font-size: 20px;
+    margin-top: 15px;  
+    outline: none; 
+    color: #9c163c;
+}
+
+.login form{
+    display: flex;
+    width: 90%;
+    flex-direction: column;
+    
+    
+}
+
+.login h1{
+    font-size: 30px;
+    font-weight: 800;
+    color: #730e2e;
+
+
+}
+
+.login img{
+    width: 86px;
+    height: auto;
+}
+
+input::placeholder{
+    color: #030001;
+    font-size: 15px;
+}
+
+button{
+    background-color:  #9c163c;
+    margin-top: 15px;
+    border: none;
+    border-radius: 3px;
+    width: 50%;
+    height: 30px;
+    margin-left: 25%;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+button:hover{
+    background-color: #520118;
+    color: #fff;
+    
+}
+
+form [type="submit"]::hover{
+    color: #9c163c;
+}
+
+p{
+    font-size: 15px;
+}
+
+p a{
+    margin-left: 5px;
+    text-decoration: none;
+}
+
