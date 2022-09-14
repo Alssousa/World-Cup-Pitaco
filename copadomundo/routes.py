@@ -61,7 +61,7 @@ def add_partida():
                 print(f"\n{partida}\n")
                 selecao_casa.partidas.append(partida)
                 selecao_fora.partidas.append(partida)       
-                database.session.add(selecao_casa)
+                database.session.add_all([selecao_casa, selecao_fora])
                 database.session.commit()
                 print("\n\nPartida vinculada as selecoes")
         
