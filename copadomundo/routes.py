@@ -11,11 +11,11 @@ def home():
 
 @app.route('/usuario/novaconta', methods=['GET', 'POST'])
 def add_usuario():
-    formcadastro = FormCadastro()
-    if formcadastro.validate_on_submit():
-        username = formcadastro.username.data
-        email = formcadastro.email.data
-        senha = formcadastro.password.data
+    formcad = FormCadastro()
+    if formcad.validate_on_submit():
+        username = formcad.username.data
+        email = formcad.email.data
+        senha = formcad.password.data
 
         if username and email and senha:
             if not Usuario.query.filter_by(email=email).first():
@@ -27,7 +27,7 @@ def add_usuario():
             print("Email já esta em uso!")
             return redirect(url_for('add_usuario'))
 
-    return render_template('tela_cad.html', formcadastro=formcadastro)
+    return render_template('tela_cad.html', formcad=formcad)
 
 
 @app.route('/usuario/login', methods=['GET', 'POST'])
