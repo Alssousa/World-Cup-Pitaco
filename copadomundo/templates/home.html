@@ -1,5 +1,42 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<p>teste</p>
+
+<div class="container mt-4">
+    <div class="row">
+        {% for partida in partidas %}
+        <div class="col-3 border rounded-2 bg-light p-2 shadow me-2" style="height: 200px;">
+            <div class="row">
+                <div class="col-6">
+                    <p>Data: {{ partida.data_partida.day }}/{{ partida.data_partida.month }}/{{ partida.data_partida.year }}<br>Hora: {{ partida.data_partida.time()}}</p>
+                </div>
+            </div>
+            <div class="row align-items-center text-center mb-5 mt-1">
+                <div class="col-5">
+                    <h4>{{ partida.selecoes[0].nome }}</h4>
+                </div>
+                <div class="col-2">
+                    <h4>X</h4>
+                </div>
+                <div class="col-5">
+                    <h4>{{ partida.selecoes[1].nome }}</h4>
+                </div>
+            </div>
+            <div class="row align-items-center text-center font-monospace" >
+                <div class="col-4 p-1">
+                    <a href="" class="btn btn-danger" style="font-size: 12px;">Casa Vence</a>
+                </div>
+                <div class="col-4 m-0 p-0">
+                    <a href="" class="btn btn-danger" style="font-size: 12px;">Empate</a>
+                </div>
+                <div class="col-4 p-1">
+                    <a href="" class="btn btn-danger" style="font-size: 12px;">Fora Vence</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+    
+
 {% endblock %}
