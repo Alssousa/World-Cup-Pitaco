@@ -6,12 +6,14 @@ from copadomundo.form import FormAddPartida, FormCadastro, FormLogin
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    partidas = Partida.query.all()
+    return render_template('home.html', partidas=partidas)
 
 
 @app.route('/usuario/novaconta', methods=['GET', 'POST'])
 def add_usuario():
     formcad = FormCadastro()
+    
     if formcad.validate_on_submit():
         username = formcad.username.data
         email = formcad.email.data
@@ -23,9 +25,9 @@ def add_usuario():
                 database.session.add(user)
                 database.session.commit()
                 return redirect(url_for('home'))
-        else:
-            print("Email já esta em uso!")
-            return redirect(url_for('add_usuario'))
+            else:
+                print("Email já esta em uso!")
+                return redirect(url_for('add_usuario'))
 
     return render_template('tela_cad.html', formcad=formcad)
 
