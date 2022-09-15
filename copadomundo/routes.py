@@ -12,36 +12,38 @@ def home():
 @app.route('/usuario/novaconta', methods=['GET', 'POST'])
 def add_usuario():
     formcadastro = FormCadastro()
-    username = formcadastro.username.data
-    email = formcadastro.email.data
-    senha = formcadastro.password.data
+    if formcadastro.validate_on_submit():
+        username = formcadastro.username.data
+        email = formcadastro.email.data
+        senha = formcadastro.password.data
 
-    if username and email and senha:
-        if not Usuario.query.filter_by(email=email).first():
-            user = Usuario(username=username, email=email, senha=senha)
-            database.session.add(user)
-            database.session.commit()
-            return redirect(url_for('home'))
-    else:
-        print("Email já esta em uso!")
-        return redirect(url_for('add_usuario'))
+        if username and email and senha:
+            if not Usuario.query.filter_by(email=email).first():
+                user = Usuario(username=username, email=email, senha=senha)
+                database.session.add(user)
+                database.session.commit()
+                return redirect(url_for('home'))
+        else:
+            print("Email já esta em uso!")
+            return redirect(url_for('add_usuario'))
 
-    return render_template('tela_cad.html')
+    return render_template('tela_cad.html', formcadastro=formcadastro)
 
 
 @app.route('/usuario/login', methods=['GET', 'POST'])
 def login():
     formlogin = FormLogin()
-    email = formlogin.email.data
-    password = formlogin.password.data
-    if email and password:
-        if Usuario.quert.filter_by(email=email, password=password).first():
-            print("Login successful!")
-            return redirect(url_for('home'))
-        else:
-            print("Login failed!")
-            return redirect(url_for('login'))
-    return render_template('tela_login.html')
+    if formlogin.validate_on_submit():
+        email = formlogin.email.data
+        password = formlogin.password.data
+        if email and password:
+            if Usuario.query.filter_by(email=email, senha=password).first():
+                print("Login successful!")
+                return redirect(url_for('home'))
+            else:
+                print("Login failed!")
+                return redirect(url_for('login'))
+    return render_template('tela_login.html', formlogin=formlogin)
 
 
 
