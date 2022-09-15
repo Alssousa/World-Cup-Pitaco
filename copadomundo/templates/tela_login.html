@@ -12,7 +12,7 @@
             {{ formlogin.email(placeholder="Email") }}
             {{ formlogin.password(placeholder="Password") }}
             {{ formlogin.btn_submit() }}
-        <p>Ainda não tem conta?<a href="#">Criar conta</a></p>
+        <p>Ainda não tem conta?<a href="{{ url_for('add_usuario') }}">Criar conta</a></p>
     </div>
 </section>
 

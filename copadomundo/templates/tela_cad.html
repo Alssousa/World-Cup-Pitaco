@@ -11,7 +11,7 @@
             {{ formcad.password(placeholder="Password") }}
             {{ formcad.btn_submit }}
         </form>
-        <p>Já tem conta?<a href="#">Fazer login</a></p>
+        <p>Já tem conta?<a href="{{ url_for('login') }}">Fazer login</a></p>
     </div>
 </section>
 {% endblock %}
