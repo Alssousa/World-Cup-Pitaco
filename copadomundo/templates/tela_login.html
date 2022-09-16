@@ -5,7 +5,7 @@
 
 <section class="back">
     <div class="login">
-        <div><img src="img/1.png" alt=""></div>
+        <div><img src="{{url_for('static',filename='img/1.png')}}" alt=""></div>
         <h1>World Cup Pitacos</h1>
         <form action="" method="POST">
             {{ formlogin.csrf_token }}
