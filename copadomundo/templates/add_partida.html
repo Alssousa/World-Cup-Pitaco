@@ -1,31 +1,37 @@
 {% extends "base.html" %}
 
 {% block body %}
-<div class="container">
-    <form action="" method="post">
-        {{ formaddpartida.csrf_token }}
-        <div class="row justify-content-center border border-1 rounded-2">
-            <div class="col-6 p-4">
-                <div class="row mb-4">
-                    <h4>Adicionar Partidas</h4>
+<div class="container" style="height: 700px;">
+    <div class="row justify-content-center">
+        <div class="col-8 mt-4">
+            <form action="" method="post">
+                {{ formaddpartida.csrf_token }}
+                <div class="row justify-content-center black border rounded-4 p-5 shadow-lg" style="background-color: #f6f8f9; height: 600px;">
+                    <div class="col-8 p-4 border" style="border-radius: 0 20px 0 20px;">
+                        <div class="row mb-4">
+                            <h4>Adicionar Partidas</h4>
+                        </div>
+                        <div class="form-floating col-12 mb-3 shadow">
+                            {{ formaddpartida.selecao_casa(class="form-control", id="selecao_casa", placeholder="name@example.com.br") }}
+                            {{ formaddpartida.selecao_casa.label(class="", for="selecao_casa") }}
+                            
+                        </div>
+                        <div class="form-floating col-12 mb-3 shadow">
+                            {{ formaddpartida.selecao_fora(class="form-control", id="selecao_fora", placeholder="password") }}
+                            {{ formaddpartida.selecao_fora.label(class="", for="selecao_fora") }}
+                            
+                        </div>
+                        <div class="form-floating col-12 mb-5 shadow">
+                            {{ formaddpartida.data_partida(class="form-control", id="selecao_fora") }}
+                            {{ formaddpartida.data_partida.label(class="form-label", for="selecao_fora") }}
+                        </div>
+                        <div class="col-12">
+                            {{ formaddpartida.btn_submit(class="btn btn-primary") }}                        
+                        </div>
+                    </div>
                 </div>
-                <div class="col-12 mb-3">
-                    {{ formaddpartida.selecao_casa.label(class="form-label", for="selecao_casa") }}
-                    {{ formaddpartida.selecao_casa(class="form-control", id="selecao_casa") }}
-                </div>
-                <div class="col-12 mb-3">
-                    {{ formaddpartida.selecao_fora.label(class="form-label", for="selecao_forta") }}
-                    {{ formaddpartida.selecao_fora(class="form-control", id="selecao_forta") }}
-                </div>
-                <div class="col-12 mb-5">
-                    {{ formaddpartida.data_partida.label(class="form-label", for="selecao_forta") }}
-                    {{ formaddpartida.data_partida(class="form-control", id="selecao_forta") }}
-                </div>
-                <div class="col-12">
-                    {{ formaddpartida.btn_submit(class="btn btn-primary") }}
-                </div>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 {% endblock %}
