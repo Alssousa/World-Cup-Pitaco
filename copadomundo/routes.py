@@ -2,6 +2,7 @@ from copadomundo import app, bcrypt, database
 from flask import request, render_template, redirect, url_for
 from copadomundo.models import Usuario, Partida, Selecao, Palpite
 from copadomundo.form import FormAddPartida, FormCadastro, FormLogin
+from flask_login import login_user, logout_user, current_user, login_required
 
 
 @app.route('/')
@@ -55,6 +56,7 @@ def ranking_usuarios():
 
 
 @app.route('/selecoes/partida/addpartida', methods=['GET', 'POST'])
+@login_required
 def add_partida():
     formaddpartida = FormAddPartida()
     
@@ -97,3 +99,9 @@ def all_partidas():
 @app.route('/selecoes/partidas/<id_partida>', methods=['POST'])
 def definir_resultado(id_partida):
     return render_template('definir_resultado.html', )
+
+
+@app.route('/usuario/<partida>/palpite', methods=['GET', 'POST'])
+@login_required
+def palpite(partida):
+    return render_template('home.html')
