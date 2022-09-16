@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>World Cup Pitaco</title>
-    <!-- CSS only -->
+    <!-- CSS bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
     {% block head %}
@@ -12,10 +12,27 @@
 <body>
     {% include 'navbar.html' %}
 
+    <!--ALERTA DE MSG-->
+    <!-- 
+        1* with mensagens recebe todas as mensagens que foi passado por meio do flash, uma classe do Flask que transporta mensagens por meio de redirect e entre outros.
+        2* a variavel mensagens é percorrida com um for, no qual recebe o tipo de alerta e a mensagem, no qual ambas foram definidas no main class, apos submite do formulario.
+    -->
+    {% with mensagens = get_flashed_messages(with_categories=True) %}
+        {% if mensagens %}
+            {% for categoria, mensagem in mensagens %}
+                <div class="container">
+                    <div class="container alert {{ categoria }}" style="">
+                        {{ mensagem }}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %} 
+    {% endwith %}
+
     {% block body %}
     {% endblock %}
 
-    <!-- JavaScript Bundle with Popper -->
+    <!-- JavaScript bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 
 </body>
