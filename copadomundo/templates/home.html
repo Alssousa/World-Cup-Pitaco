@@ -8,7 +8,7 @@
         <div class="col-3 border rounded-2 bg-light p-2 shadow me-2" style="height: 200px;">
             <div class="row">
                 <div class="col-6">
-                    <p>Data: {{ partida.data_partida.day }}/{{ partida.data_partida.month }}/{{ partida.data_partida.year }}<br>Hora: {{ partida.data_partida.time()}}</p>
+                    <p>Data: {{ partida.data_partida.day }}/{{ partida.data_partida.month }}/{{ partida.data_partida.year }}<br>Hora: {{ partida.data_partida.time() }}</p>
                 </div>
             </div>
             <div class="row align-items-center text-center mb-5 mt-1">
@@ -37,6 +37,5 @@
     {% endfor %}
     </div>
 </div>
-    
 
 {% endblock %}
