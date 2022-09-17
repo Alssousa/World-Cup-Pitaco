@@ -3,6 +3,7 @@ from flask import request, render_template, redirect, url_for, flash
 from copadomundo.models import Usuario, Partida, Selecao, Palpite
 from copadomundo.form import FormAddPartida, FormCadastro, FormLogin
 from flask_login import login_user, logout_user, current_user, login_required
+from collections import OrderedDict
 
 
 @app.route('/')
@@ -98,8 +99,13 @@ def add_partida():
 
 @app.route('/selecoes/partida/todas', methods=['POST', 'GET'])
 def todas_partidas():
-    partidas = Partida.query.all()
-    return render_template('partidas.html', partidas=partidas)
+    partidas = Partida.query.order_by(Partida.data_partida).all()
+    datas_partidas = []
+    for partida in partidas:
+        datas_partidas.append(partida.data_partida)
+    datas_partidas = list(OrderedDict.fromkeys(datas_partidas))
+
+    return render_template('partidas.html', partidas=partidas, datas_partidas=datas_partidas)
 
 
 @app.route('/selecoes/partidas/<id_partida>', methods=['POST'])
