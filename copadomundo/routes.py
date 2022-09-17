@@ -97,8 +97,9 @@ def add_partida():
 
 
 @app.route('/selecoes/partida/todas', methods=['POST', 'GET'])
-def all_partidas():
-    return render_template('all_partidas.html')
+def todas_partidas():
+    partidas = Partida.query.all()
+    return render_template('partidas.html', partidas=partidas)
 
 
 @app.route('/selecoes/partidas/<id_partida>', methods=['POST'])
@@ -109,7 +110,8 @@ def definir_resultado(id_partida):
 @app.route('/usuario/<partida>/palpite', methods=['GET', 'POST'])
 @login_required
 def palpite(partida):
-    return render_template('home.html')
+    
+    return render_template('home.html') 
 
 
 @app.route('/logout')
