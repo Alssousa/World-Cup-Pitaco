@@ -43,7 +43,7 @@ class Selecao(database.Model):
                 elif i >= 4 and i < 8:
                     grupo_nome = 'B'
                 elif i >= 8 and i < 12:
-                    _nome = 'C'
+                    grupo_nome = 'C'
                 elif i >= 12 and i < 16:
                     grupo_nome = 'D'
                 elif i >= 16 and i < 20:
