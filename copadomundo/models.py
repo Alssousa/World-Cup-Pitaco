@@ -74,7 +74,7 @@ class Partida(database.Model):
     descricao = database.Column(database.String, nullable=False)
     gol_casa = database.Column(database.Integer, default=0)
     gol_fora = database.Column(database.Integer, default=0)
-    data_partida = database.Column(database.DateTime, default=datetime.utcnow)
+    data_partida = database.Column(database.DateTime, default=datetime.now())
 
 
 class Grupo(database.Model):
