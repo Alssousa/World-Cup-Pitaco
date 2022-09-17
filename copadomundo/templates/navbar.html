@@ -9,7 +9,7 @@
                     <div class="col-6 align-self-center">
                         <ul class="list-inline p-0 m-0 text-center " style="font-size: 16px;">
                             <a href="{{ url_for('home') }}"><li class="list-unstyled list-inline-item mx-2">Home</li></a>
-                            <a href=""><li class="list-unstyled list-inline-item mx-2">Partidas</li></a>                         
+                            <a href="{{ url_for('todas_partidas') }}"><li class="list-unstyled list-inline-item mx-2">Partidas</li></a>                         
                     {% if not current_user.is_authenticated %}                  
                             <a href="{{ url_for('login') }}"><li class="list-unstyled list-inline-item mx-2">Login</li></a>
                             <a href="{{ url_for('add_usuario') }}"><li class="list-unstyled list-inline-item mx-2">Cadastra-se</li></a>                                        
