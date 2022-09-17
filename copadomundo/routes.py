@@ -4,6 +4,7 @@ from copadomundo.models import Usuario, Partida, Selecao, Palpite
 from copadomundo.form import FormAddPartida, FormCadastro, FormLogin
 from flask_login import login_user, logout_user, current_user, login_required
 from collections import OrderedDict
+from datetime import datetime
 
 
 @app.route('/')
@@ -101,11 +102,14 @@ def add_partida():
 def todas_partidas():
     partidas = Partida.query.order_by(Partida.data_partida).all()
     datas_partidas = []
+    data_atual = datetime.now()
+    dif = partidas[1].data_partida - data_atual
+    print(dif.days, (dif.seconds/60)/60)
     for partida in partidas:
         datas_partidas.append(partida.data_partida)
     datas_partidas = list(OrderedDict.fromkeys(datas_partidas))
 
-    return render_template('partidas.html', partidas=partidas, datas_partidas=datas_partidas)
+    return render_template('partidas.html', partidas=partidas, datas_partidas=datas_partidas, data_atual=data_atual)
 
 
 @app.route('/selecoes/partidas/<id_partida>', methods=['POST'])
