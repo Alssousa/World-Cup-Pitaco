@@ -21,10 +21,17 @@
                             {{ formaddpartida.selecao_fora.label(class="", for="selecao_fora") }}
                             
                         </div>
-                        <div class="form-floating col-12 mb-5 shadow">
-                            {{ formaddpartida.data_partida(class="form-control", id="selecao_fora") }}
-                            {{ formaddpartida.data_partida.label(class="form-label", for="selecao_fora") }}
+                        <div class="row mb-5">
+                            <div class="form-floating col-6">
+                                {{ formaddpartida.data_partida(class="form-control", id="data_partida") }}
+                                {{ formaddpartida.data_partida.label(class="form-label", for="data_partida") }}
+                            </div>
+                            <div class="form-floating col-6">
+                                {{ formaddpartida.hora_partida(class="form-control", id="hora_partida") }}
+                                {{ formaddpartida.hora_partida.label(class="form-label", for="hora_partida") }}
+                            </div>
                         </div>
+                            
                         <div class="col-12">
                             {{ formaddpartida.btn_submit(class="btn btn-primary") }}                        
                         </div>
