@@ -1,6 +1,6 @@
 from copadomundo import app, bcrypt, database
 from flask import request, render_template, redirect, url_for, flash
-from copadomundo.models import Usuario, Partida, Selecao, Palpite
+from copadomundo.models import Usuario, Partida, Selecao, Palpite, Grupo
 from copadomundo.form import FormAddPartida, FormCadastro, FormLogin
 from flask_login import login_user, logout_user, current_user, login_required
 from collections import OrderedDict
@@ -136,6 +136,14 @@ def definir_resultado(id_partida):
 def palpite(partida):
     
     return render_template('home.html') 
+
+
+@app.route('/selecao/grupos', methods=['GET', 'POST'])
+def fase_grupos():
+    selecoes = Selecao.query.all()
+    grupos = Grupo.query.all()
+    
+    return render_template('tela_grupos.html', selecoes=selecoes, grupos=grupos)
 
 
 @app.route('/logout')
