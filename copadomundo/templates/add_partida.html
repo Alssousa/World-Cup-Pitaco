@@ -11,23 +11,28 @@
                         <div class="row mb-4">
                             <h4>Adicionar Partidas</h4>
                         </div>
-                        <div class="form-floating col-12 mb-3 shadow">
-                            {{ formaddpartida.selecao_casa(class="form-control", id="selecao_casa", placeholder="name@example.com.br") }}
-                            {{ formaddpartida.selecao_casa.label(class="", for="selecao_casa") }}
-                            
+                        
+                        <div class="form col-12 mb-4 shadow-sm">
+                            {{ formaddpartida.grupo.label(class="", for="grupo") }}
+                            {{ formaddpartida.grupo(class="form-control", id="grupo", placeholder="Selecione o Grupo") }}                               
                         </div>
-                        <div class="form-floating col-12 mb-3 shadow">
-                            {{ formaddpartida.selecao_fora(class="form-control", id="selecao_fora", placeholder="password") }}
-                            {{ formaddpartida.selecao_fora.label(class="", for="selecao_fora") }}
-                            
-                        </div>
+                        <div class="row mb-4">
+                            <div class="form col-6">
+                                {{ formaddpartida.selecao_casa.label(class="", for="selecao_casa") }}
+                                {{ formaddpartida.selecao_casa(class="form-control shadow-sm", id="selecao_casa", placeholder="name@example.com.br") }}                                
+                            </div>
+                            <div class="form col-6">
+                                {{ formaddpartida.selecao_fora.label(class="", for="selecao_fora") }}
+                                {{ formaddpartida.selecao_fora(class="form-control shadow-sm", id="selecao_fora", placeholder="password") }}                             
+                            </div>
+                        </div>                       
                         <div class="row mb-5">
                             <div class="form-floating col-6">
-                                {{ formaddpartida.data_partida(class="form-control", id="data_partida") }}
+                                {{ formaddpartida.data_partida(class="form-control shadow-sm", id="data_partida") }}
                                 {{ formaddpartida.data_partida.label(class="form-label", for="data_partida") }}
                             </div>
-                            <div class="form-floating col-6">
-                                {{ formaddpartida.hora_partida(class="form-control", id="hora_partida") }}
+                            <div class="form-floating col-6"> 
+                                {{ formaddpartida.hora_partida(class="form-control shadow-sm", id="hora_partida") }}
                                 {{ formaddpartida.hora_partida.label(class="form-label", for="hora_partida") }}
                             </div>
                         </div>
@@ -38,6 +43,25 @@
                     </div>
                 </div>
             </form>
+            <script>
+                let grupo_select = document.getElementById('grupo');
+                let selecao_casa_select = document.getElementById('selecao_casa');
+                let selecao_fora_select = document.getElementById('selecao_fora');
+
+                grupo_select.onchange = function() {
+                    grupo = grupo_select.value;
+                    fetch('/selecoes/' + grupo).then(function(response) {
+                        response.json().then(function(data) {
+                            let optionHTML = '';
+                            for (let selecao of data.selecoes) {
+                                optionHTML += '<option value="' + selecao.id + '">' + selecao.name + '</option>';
+                            }
+                            selecao_casa_select.innerHTML = optionHTML;
+                            selecao_fora_select.innerHTML = optionHTML;
+                        });
+                    });
+                }
+            </script>
         </div>
     </div>
 </div>
