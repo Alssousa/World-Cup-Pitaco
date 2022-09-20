@@ -14,6 +14,9 @@ class Usuario(database.Model, UserMixin):
     email = database.Column(database.String, nullable=False, unique=True)
     foto_user = database.Column(database.String, default='default.png')
     score = database.Column(database.Integer, default=0)
+    acertos = database.Column(database.Integer, default=0)
+    erros = database.Column(database.Integer, default=0)
+    admin = database.Column(database.Boolean, default=False)
 
 
 partida_selecao = database.Table('partidas',
@@ -25,8 +28,15 @@ partida_selecao = database.Table('partidas',
 class Selecao(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     id_grupo = database.Column(database.Integer, database.ForeignKey('grupo.id'), nullable=False)
+    id_eliminatoria = database.Column(database.Integer, database.ForeignKey('eliminatoria.id'))
     nome = database.Column(database.String, nullable=False, unique=True)
     foto_selecao = database.Column(database.String, default='selecao_default.png')
+    pontos = database.Column(database.Integer, default=0)
+    gols_marcado = database.Column(database.Integer, default=0)
+    gols_sofrido = database.Column(database.Integer, default=0)
+    vitorias = database.Column(database.Integer, default=0)
+    derrotas = database.Column(database.Integer, default=0)
+    qnt_jogos = database.Column(database.Integer, default=0)
     partidas = database.relationship('Partida', secondary=partida_selecao, lazy='subquery', backref=database.backref('selecoes', lazy=True))
 
     def add_selecoes(self):
@@ -75,19 +85,26 @@ class Partida(database.Model):
     gol_casa = database.Column(database.Integer, default=0)
     gol_fora = database.Column(database.Integer, default=0)
     data_partida = database.Column(database.DateTime, default=datetime.now())
-
+    status = database.Column(database.String, default="aguardando")
 
 class Grupo(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     nome_grupo = database.Column(database.String, nullable=False, unique=True)
     selecoes = database.relationship('Selecao', backref='grupo', lazy=True)
+    
+    
+class Eliminatoria(database.Model):
+    id = database.Column(database.Integer, primary_key=True)
+    etapa = database.Column(database.String, nullable=False, unique=True)
+    selecoes = database.relationship('Selecao', backref='fase', lazy=True)
+    status = database.Column(database.String, default="aguardando")
 
 
 class Palpite(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     id_usuario = database.Column(database.Integer, database.ForeignKey('usuario.id'), nullable=False)
     id_partida = database.Column(database.Integer, database.ForeignKey('partida.id'), nullable=False)
-    id_vencedor = database.Column(database.Integer, database.ForeignKey('selecao.id'), nullable=False)
+    palpite = database.Column(database.String, nullable=False)
     status = database.Column(database.String)
 
 
