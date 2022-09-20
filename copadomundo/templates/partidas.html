@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container rounded-2 p-3"style="background-color: #f6f8f9;">
+    <div class="row mb-5">
+        <div class="col-12">
+            <h4>Todas as Partidas</h4>
+        </div>
+    </div>
+    {% for data_partida in datas_partidas %}
+        {% set dif = data_partida - data_atual %}
+        {% if dif.days >= -1 %}
+    <div class="row align-items-center mb-1">
+        <div class="col-12 align-self-center p-2 mb-2" style="background-color: #e0e5eb;"><h5 class="m-0">{{data_partida.day}}/{{data_partida.month}}/{{data_partida.year}}</h5></div>
+    </div>
+            {% for partida in partidas %}
+        
+                {% if partida.data_partida == data_partida%}
+            <div class="row mb-0 ms-4" style="">
+                <div class="col-8">
+                    <div class="row align-items-center">
+                        <div class="col-1 px-0 ps-1">Grupo {{ partida.selecoes[0].grupo.nome_grupo }}</div>
+                        <div class="col-1">{{ partida.data_partida.time() }}</div>
+                        <div class="col-2">{{ partida.selecoes[0].nome }} X {{ partida.selecoes[1].nome }}</div>
+                        <div class="col-7">
+                            <div class="row">
+                                <div class="col-4"><a href="" class="btn btn-success px-5">Casa</a></div>
+                                <div class="col-4"><a href="" class="btn btn-warning px-5">Empate</a></div>
+                                <div class="col-4"><a href="" class="btn btn-success px-5">Fora</a></div>
+                            </div>
+                                
+                        </div>
+                        <hr class="my-3 ">
+                    </div>
+                </div>             
+            </div>           
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% endblock %}

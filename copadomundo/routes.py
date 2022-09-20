@@ -1,13 +1,28 @@
 from copadomundo import app, bcrypt, database
-from flask import request, render_template, redirect, url_for
+from flask import request, render_template, redirect, url_for, flash
 from copadomundo.models import Usuario, Partida, Selecao, Palpite
 from copadomundo.form import FormAddPartida, FormCadastro, FormLogin
+from flask_login import login_user, logout_user, current_user, login_required
+from collections import OrderedDict
+from datetime import datetime, date, timedelta
 
 
 @app.route('/')
 def home():
-    partidas = Partida.query.all()
-    return render_template('home.html', partidas=partidas)
+    partidas = Partida.query.order_by(Partida.data_partida).all()
+    datas_partidas = []
+    data_atual = datetime.now()
+    for partida in partidas:
+        datas_partidas.append(partida.data_partida)
+    datas_partidas = list(OrderedDict.fromkeys(datas_partidas))
+    
+    partida = Partida.query.get(4)
+    horas_meia_noite = datetime(data_atual.year, data_atual.month, data_atual.day, 00, 00, 00)
+    
+    print(horas_meia_noite)
+
+    
+    return render_template('home.html', partidas=partidas, data_atual=data_atual, horas_meia_noite=horas_meia_noite, timedelta=timedelta)
 
 
 @app.route('/usuario/novaconta', methods=['GET', 'POST'])
@@ -24,6 +39,7 @@ def add_usuario():
                 user = Usuario(username=username, email=email, senha=senha)
                 database.session.add(user)
                 database.session.commit()
+                flash(f'Conta {user.username} criada com sucesso', 'alert-success')
                 return redirect(url_for('home'))
             else:
                 print("Email já esta em uso!")
@@ -39,11 +55,15 @@ def login():
         email = formlogin.email.data
         password = formlogin.password.data
         if email and password:
-            if Usuario.query.filter_by(email=email, senha=password).first():
+            user = Usuario.query.filter_by(email=email, senha=password).first()
+            if user:
                 print("Login successful!")
+                flash(f'Seja bem vindo {user.username}', 'alert-success')
+                login_user(user)
                 return redirect(url_for('home'))
             else:
                 print("Login failed!")
+                flash(f'Email ou senha incorreto.', 'alert-danger')
                 return redirect(url_for('login'))
     return render_template('tela_login.html', formlogin=formlogin)
 
@@ -55,6 +75,7 @@ def ranking_usuarios():
 
 
 @app.route('/selecoes/partida/addpartida', methods=['GET', 'POST'])
+@login_required
 def add_partida():
     formaddpartida = FormAddPartida()
     
@@ -62,8 +83,10 @@ def add_partida():
         selecao_casa = formaddpartida.selecao_casa.data
         selecao_fora = formaddpartida.selecao_fora.data
         data_partida = formaddpartida.data_partida.data
+        hora_partida = formaddpartida.hora_partida.data
         descricao = f"{selecao_casa} x {selecao_fora}"
-        partida = Partida(descricao=descricao, data_partida=data_partida)
+        data = datetime(data_partida.year, data_partida.month, data_partida.day, hora_partida.hour, hora_partida.minute, 0)
+        partida = Partida(descricao=descricao, data_partida=data)
         
         if not Partida.query.filter_by(descricao=descricao).filter_by(data_partida=data_partida).first():
             try:
@@ -90,10 +113,34 @@ def add_partida():
 
 
 @app.route('/selecoes/partida/todas', methods=['POST', 'GET'])
-def all_partidas():
-    return render_template('all_partidas.html')
+def todas_partidas():
+    partidas = Partida.query.order_by(Partida.data_partida).all()
+    datas_partidas = []
+    data_atual = datetime.now()
+    dif = partidas[1].data_partida - data_atual
+    print(dif.days, (dif.seconds/60)/60)
+    for partida in partidas:
+        datas_partidas.append(partida.data_partida)
+    datas_partidas = list(OrderedDict.fromkeys(datas_partidas))
+
+    return render_template('partidas.html', partidas=partidas, datas_partidas=datas_partidas, data_atual=data_atual)
 
 
 @app.route('/selecoes/partidas/<id_partida>', methods=['POST'])
 def definir_resultado(id_partida):
     return render_template('definir_resultado.html', )
+
+
+@app.route('/usuario/<partida>/palpite', methods=['GET', 'POST'])
+@login_required
+def palpite(partida):
+    
+    return render_template('home.html') 
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('Logout realizado com sucesso', 'alert-success')
+    return redirect(url_for('home'))

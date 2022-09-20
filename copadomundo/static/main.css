@@ -9,6 +9,14 @@ body{
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.white{
+    color: white;
+}
+
+.black{
+    color: black;
+}
+
 .back{
     display: flex;
     height: 100vh;
@@ -22,8 +30,8 @@ body{
     align-items: center;
     background-color: rgba(202, 209, 202, 0.7);
     backdrop-filter: blur(12px);
-    width: 320px;
-    height: 400px;
+    width: 380px;
+    height: 500px;
     padding: 50px;
     border-radius: 15px;
     box-shadow: 2px 2px 20px black;

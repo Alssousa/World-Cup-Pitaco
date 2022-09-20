@@ -1,28 +1,33 @@
-<nav class="navbar bg-light mb-1">
-    <div class="navbar-brand shadow-sm navbar-expand-lg justify-content-center" style="width: 100%;">
-        <div class="row container align-items-center">
-            <div class="col-2">
+<nav class="navbar bg-light mb-5 navbar-brand navbar-expand-lg shadow me-0">
+        <div class="row align-items-center w-100">
+            <div class="col-2 align-self-center">
                 <a class="" href="{{ url_for('home') }}" style="text-decoration: none;"><h4>World Cup Pitaco</h4></a>
             </div>
             <div class="col-10">
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-6 align-self-center">
                         <ul class="list-inline p-0 m-0 text-center " style="font-size: 16px;">
                             <a href="{{ url_for('home') }}"><li class="list-unstyled list-inline-item mx-2">Home</li></a>
-                            <a href=""><li class="list-unstyled list-inline-item mx-2">Partidas</li></a>
+                            <a href="{{ url_for('todas_partidas') }}"><li class="list-unstyled list-inline-item mx-2">Partidas</li></a>                         
+                    {% if not current_user.is_authenticated %}                  
                             <a href="{{ url_for('login') }}"><li class="list-unstyled list-inline-item mx-2">Login</li></a>
-                            <a href="{{ url_for('add_usuario') }}"><li class="list-unstyled list-inline-item mx-2">Cadastra-se</li></a>
+                            <a href="{{ url_for('add_usuario') }}"><li class="list-unstyled list-inline-item mx-2">Cadastra-se</li></a>                                        
+                    {% endif%}
                         </ul>
+                    </div> 
+                    {% if current_user.is_authenticated %} 
+                    <div class="col-3 align-self-center text-center">
+                        <ul class="list-inline p-0 m-0 text-center" style="font-size: 16px;">
+                            <a href="{{ url_for('add_partida') }}" style="color: rgb(80, 3, 3);"><li class="list-unstyled list-inline-item mx-2">Adicionar Partida</li></a>
+                            <a href="" style="color: rgb(80, 3, 3);"><li class="list-unstyled list-inline-item mx-2">Definir Resultado</li></a>
+                        </ul>    
                     </div>
-                    <div class="col-2">
-                        <ul class="list-inline p-0 m-0 text-center " style="font-size: 16px;">
-                            <a href="{{ url_for('add_partida') }}"><li class="list-unstyled list-inline-item mx-2">Adicionar Partida</li></a>
-                            <a href=""><li class="list-unstyled list-inline-item mx-2">Definir Resultado</li></a>
-                        </ul>
+                    <div class="col-3 ms-auto text-center">
+                        <a href=""><li class="list-unstyled list-inline-item mx-2 font-monospace fs-6">{{ current_user.username }}</li></a>
+                        <a href="{{ url_for('logout') }}"><li class="list-unstyled list-inline-item mx-2 font-monospace fs-6">Sair</li></a>
                     </div>
-                </div>
-                    
+                    {% endif %} 
+                </div>                                      
             </div>
         </div>      
-    </div>
 </nav>

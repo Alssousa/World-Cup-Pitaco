@@ -1,8 +1,13 @@
-from copadomundo import database
+from copadomundo import database, login_manager
 from datetime import datetime
+from flask_login import UserMixin
 
 
-class Usuario(database.Model):
+@login_manager.user_loader
+def load_usuario(id_usuario):
+    return Usuario.query.get(int(id_usuario))
+
+class Usuario(database.Model, UserMixin):
     id = database.Column(database.Integer, primary_key=True)
     username = database.Column(database.String, nullable=False, unique=True)
     senha = database.Column(database.String, nullable=False)
@@ -38,7 +43,7 @@ class Selecao(database.Model):
                 elif i >= 4 and i < 8:
                     grupo_nome = 'B'
                 elif i >= 8 and i < 12:
-                    _nome = 'C'
+                    grupo_nome = 'C'
                 elif i >= 12 and i < 16:
                     grupo_nome = 'D'
                 elif i >= 16 and i < 20:
@@ -69,7 +74,7 @@ class Partida(database.Model):
     descricao = database.Column(database.String, nullable=False)
     gol_casa = database.Column(database.Integer, default=0)
     gol_fora = database.Column(database.Integer, default=0)
-    data_partida = database.Column(database.DateTime, default=datetime.utcnow)
+    data_partida = database.Column(database.DateTime, default=datetime.now())
 
 
 class Grupo(database.Model):
