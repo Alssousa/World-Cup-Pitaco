@@ -82,11 +82,11 @@ def add_partida():
     formaddpartida.selecao_fora.choices = [(selecao.id, selecao.nome) for selecao in Selecao.query.filter_by(id_grupo=1).all()]
     
     if formaddpartida.validate_on_submit():
-        selecao_casa = formaddpartida.selecao_casa.data
-        selecao_fora = formaddpartida.selecao_fora.data
+        selecao_casa = Selecao.query.get(formaddpartida.selecao_casa.data)
+        selecao_fora = Selecao.query.get(formaddpartida.selecao_fora.data)
         data_partida = formaddpartida.data_partida.data
         hora_partida = formaddpartida.hora_partida.data
-        descricao = f"{selecao_casa} x {selecao_fora}"
+        descricao = f"{selecao_casa.nome} x {selecao_fora.nome}"
         data = datetime(data_partida.year, data_partida.month, data_partida.day, hora_partida.hour, hora_partida.minute, 0)
         partida = Partida(descricao=descricao, data_partida=data)
         
@@ -96,9 +96,6 @@ def add_partida():
                 database.session.commit()
             except Exception as e:
                 print("Erro ao criar a partida: " + str(e))
-                
-            selecao_casa = Selecao.query.filter_by(nome=selecao_casa).first()
-            selecao_fora = Selecao.query.filter_by(nome=selecao_fora).first()
             
             if selecao_casa and selecao_fora:
                 partida = Partida.query.filter_by(descricao=descricao).first()
@@ -137,8 +134,6 @@ def todas_partidas():
     datas_partidas = []
     data_atual = datetime.now()
     if partidas:
-        dif = partidas[1].data_partida - data_atual
-        print(dif.days, (dif.seconds/60)/60)
         for partida in partidas:
             datas_partidas.append(partida.data_partida)
         datas_partidas = list(OrderedDict.fromkeys(datas_partidas))
