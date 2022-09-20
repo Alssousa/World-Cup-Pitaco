@@ -1,21 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/copadomundo/static/main.css">
-    <!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+{% extends 'base.html' %}
 
-    <title>Document</title>
-</head>
-<body>
+{% block body %}
     <div class="cont">
         <div class="dt">
-        <div class="grupo"><p href="">grupa A</p></div>
+        {% for grupo in grupos %}
+        <div class="grupo"><p href="">Grupo {{ grupo.nome_grupo }}</p></div>
         <table class="table table-dark">
             <thead>
                     <tr>
@@ -30,13 +19,17 @@
                         <th>sg</th>
                     </tr>
                 </thead>
+                {% for selecao in selecoes %}
+                    {% if selecao.grupo.nome_grupo == grupo.nome_grupo %}
                 <tbody>
                     <tr class="rt">
                         <td>1</td>
-                        <th class="nt">
-                            <img src="/copadomundo/static/img/b1.png" alt="">
-                            Brazil
-                        </th>
+                        <td>
+                            <div class="row">
+                                <div class="col-6 nt"><img src="{{ url_for('static', filename='img/b1.png') }}" alt="" ></div>
+                                <div class="col-6"><p>{{ selecao.nome }}</p></div>
+                            </div>
+                        </td>
                         <td>0</td>
                         <td>0</td>
                         <td>0</td>
@@ -46,9 +39,10 @@
                         <td>0</td>
                     </tr>
                 </tbody>
+                    {% endif %}
+                {% endfor %}
             </table>
-        </div>
-       
+        {% endfor %}
+        </div>    
     </div>
-</body>
-</html>
+{% endblock %}
