@@ -99,3 +99,53 @@ p a{
     text-decoration: none;
 }
 
+/*-----------------------CSS DO GRUPOS------------------------------------------*/
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cont{
+    min-width: 500px;
+    width: 80vw;
+    background-color: rgb(255, 64, 0);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px,1fr));
+    grid-gap: 1px;
+    padding: 1px;
+
+}
+.dt{
+    background-color: black;
+}
+.grupo{
+    width: 100%;
+    height: 30px;
+    background-color: rgb(10, 10, 10);
+    display: flex;
+    padding-left: 15px;
+}
+.grupo p{
+    font-size: 18px;
+    font-weight: 600;
+    color: aliceblue;
+}
+
+.rt:hover{
+    background-color: rgb(49, 49, 49);
+}
+.table{
+    height: auto;
+    width: 300px;   
+}
+.nt{
+    width: 40%;   
+}
+.nt img{
+    background-size: cover;
+    width: 30px;
+    height: 20px;
+    margin-right: 7px;
+}
+/*-----------------------END CSS DO GRUPOS--------------------------------------*/
