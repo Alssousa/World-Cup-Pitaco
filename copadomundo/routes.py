@@ -81,7 +81,10 @@ def add_partida():
     formaddpartida.selecao_casa.choices = [(selecao.id, selecao.nome) for selecao in Selecao.query.filter_by(id_grupo=1).all()]
     formaddpartida.selecao_fora.choices = [(selecao.id, selecao.nome) for selecao in Selecao.query.filter_by(id_grupo=1).all()]
     
+    
+    
     if formaddpartida.validate_on_submit():
+        print("\nENTROU AKIIIIIIIIIIIII\n")
         selecao_casa = Selecao.query.get(formaddpartida.selecao_casa.data)
         selecao_fora = Selecao.query.get(formaddpartida.selecao_fora.data)
         data_partida = formaddpartida.data_partida.data
