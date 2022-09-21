@@ -1,12 +1,7 @@
-
-
-
 body{
     background-color:  #730e2e;
-    background-image: url(/copadomundo/templates/img/fundo\ 2.jpg);
     background-size: cover;
     background-position: center;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .white{
@@ -30,7 +25,7 @@ body{
     align-items: center;
     background-color: rgba(202, 209, 202, 0.7);
     backdrop-filter: blur(12px);
-    width: 380px;
+    width: 450px;
     height: 500px;
     padding: 50px;
     border-radius: 15px;
@@ -76,7 +71,7 @@ input::placeholder{
     font-size: 15px;
 }
 
-button{
+.button{
     background-color:  #9c163c;
     margin-top: 15px;
     border: none;
@@ -87,8 +82,9 @@ button{
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
+    color: white !important;
 }
-button:hover{
+.button:hover{
     background-color: #520118;
     color: #fff;
     
@@ -108,12 +104,6 @@ p a{
 }
 
 /*-----------------------CSS DO GRUPOS------------------------------------------*/
-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .cont{
     min-width: 500px;
     width: 80vw;
@@ -140,20 +130,5 @@ body{
     color: aliceblue;
 }
 
-.rt:hover{
-    background-color: rgb(49, 49, 49);
-}
-.table{
-    height: auto;
-    width: 300px;   
-}
-.nt{
-    width: 40%;   
-}
-.nt img{
-    background-size: cover;
-    width: 30px;
-    height: 20px;
-    margin-right: 7px;
-}
+
 /*-----------------------END CSS DO GRUPOS--------------------------------------*/
