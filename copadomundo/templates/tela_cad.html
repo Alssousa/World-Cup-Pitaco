@@ -9,7 +9,7 @@
             {{ formcad.email(placeholder="Email") }}
             {{ formcad.username(placeholder="Username") }}
             {{ formcad.password(placeholder="Password") }}
-            {{ formcad.btn_submit }}
+            {{ formcad.btn_submit(class="button mb-2 p-2") }}
         </form>
         <p>Já tem conta?<a href="{{ url_for('login') }}">Fazer login</a></p>
     </div>
