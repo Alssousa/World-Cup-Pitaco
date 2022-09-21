@@ -17,7 +17,7 @@ class Usuario(database.Model, UserMixin):
     acertos = database.Column(database.Integer, default=0)
     erros = database.Column(database.Integer, default=0)
     admin = database.Column(database.Boolean, default=False)
-
+    
 
 partida_selecao = database.Table('partidas',
     database.Column('selecao_id', database.Integer, database.ForeignKey('selecao.id'), primary_key=True),

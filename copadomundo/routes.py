@@ -81,7 +81,10 @@ def add_partida():
     formaddpartida.selecao_casa.choices = [(selecao.id, selecao.nome) for selecao in Selecao.query.filter_by(id_grupo=1).all()]
     formaddpartida.selecao_fora.choices = [(selecao.id, selecao.nome) for selecao in Selecao.query.filter_by(id_grupo=1).all()]
     
-    if formaddpartida.validate_on_submit():
+    
+    
+    if formaddpartida.is_submitted():
+        print("\nENTROU AKIIIIIIIIIIIII\n")
         selecao_casa = Selecao.query.get(formaddpartida.selecao_casa.data)
         selecao_fora = Selecao.query.get(formaddpartida.selecao_fora.data)
         data_partida = formaddpartida.data_partida.data
@@ -159,6 +162,13 @@ def fase_grupos():
     grupos = Grupo.query.all()
     
     return render_template('tela_grupos.html', selecoes=selecoes, grupos=grupos)
+
+
+@app.route('/usuarios/ranking')
+def ranking():
+    usuarios = Usuario.query.all()
+    
+    return render_template('tela_rank.html', usuarios=usuarios)
 
 
 @app.route('/logout')

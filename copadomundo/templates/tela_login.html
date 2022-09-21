@@ -11,7 +11,7 @@
             {{ formlogin.csrf_token }}
             {{ formlogin.email(placeholder="Email") }}
             {{ formlogin.password(placeholder="Password") }}
-            {{ formlogin.btn_submit() }}
+            {{ formlogin.btn_submit(class="button mb-2 p-2") }}
         <p>Ainda não tem conta?<a href="{{ url_for('add_usuario') }}">Criar conta</a></p>
     </div>
 </section>

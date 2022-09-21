@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<<<<<<< HEAD
     <div class="container">
         {% for grupo in grupos %}
         <div class="dt">
@@ -44,6 +45,53 @@
                 {% endfor %}
             </table>
         {% endfor %}
+=======
+    <div class="container font-monospace">
+        <div class="row p-2" style="background-color: #17181f;">     
+            {% for grupo in grupos %}     
+            <div class="col-6 ">                             
+                <div class="grupo"><p href="">Grupo {{ grupo.nome_grupo }}</p></div>
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="nt">Clube</th>
+                            <th>pts</th>
+                            <th>jgs</th>
+                            <th>vit</th>
+                            <th>der</th>
+                            <th>gf</th>
+                            <th>gs</th>
+                            <th>sg</th>
+                        </tr>
+                    </thead>
+                    {% for selecao in selecoes %}
+                        {% if selecao.grupo.nome_grupo == grupo.nome_grupo %}
+                    <tbody class="">
+                        <tr class="rt">
+                            <td>1</td>
+                            <td class="align-self-center" style="width: 45%;">
+                                <div class="row">
+                                    <div class="col-2 nt"><img src="{{ url_for('static', filename='img/b1.png') }}" alt="" width="20px"></div>
+                                    <div class="col-10"><p class="m-0">{{ selecao.nome }}</p></div>
+                                </div>
+                            </td>
+                            <td>0</td>
+                            <td class="align-self-center">0</td>
+                            <td class="align-self-center">0</td>
+                            <td class="align-self-center">0</td>
+                            <td class="align-self-center">0</td>
+                            <td class="align-self-center">0</td>
+                            <td class="align-self-center">0</td>
+                        </tr class="align-self-center">
+                    </tbody>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+                
+            </div> 
+            {% endfor %}      
+>>>>>>> 84a0b042f5abf33e77be20203afc100ef18b226d
         </div>    
     </div>
 {% endblock %}
