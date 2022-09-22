@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField, DateField, TimeField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField, DateField, TimeField, IntegerField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from copadomundo.models import Usuario
 
@@ -12,7 +12,14 @@ class FormAddPartida(FlaskForm):
     data_partida = DateField('Data da Partida', validators=[DataRequired()])
     hora_partida = TimeField('Hora Partida', validators=[DataRequired()])
     btn_submit = SubmitField('Adicionar')
-
+    
+    
+class FormDefinirResultado(FlaskForm):
+    casa_gol = IntegerField('Selecão Casa', validators=[DataRequired()])
+    fora_gol = IntegerField('Selecão Fora', validators=[DataRequired()])
+    status = SelectField('Situação da Partida', choices=[('Em andamento', 'Em andamento'), ('Finalizada', 'Finalizada'), ('Cancelada', 'Cancelada')])
+    btn_submit = SubmitField('Confirmar Alterações')
+    
 
 class FormCadastro(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
