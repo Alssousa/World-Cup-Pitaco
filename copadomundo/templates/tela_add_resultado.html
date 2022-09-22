@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container rounded-1 mt-0 pt-5 font-monospace" style="background-color: white; height: 900px;">
+    <div class="row justify-content-center row-cols-1" >
+        <div class="col-10 mb-4"><h4 class="black" id="exampleModalLabel">Altere dados sobre a partida</h4></div>
+        <div class="col-10">
+            <form class="border rounded-1 p-3 white" action="" method="POST" style="background-color: #1d1e2085;">
+                {{ formresultado.csrf_token }}
+                <div class="modal-body rounded-2" style="height: 400px;">
+                    <div class="row justify-content-between text-center mb-2 mt-4">
+                        <div class="col-5"><img class="shadow-lg" src="{{ url_for('static', filename='img/b1.png') }}" alt="" width="100px"></div>
+                        <div class="col-5"><img class="shadow-lg" src="{{ url_for('static', filename='img/b1.png') }}" alt="" width="100px"></div>
+                    </div>
+                    <div class="row text-center row-cols-2 mb-4">                          
+                        <div class="col-5">
+                            <label for="casa_gol", class="form-label">{{ selecao_casa.nome }}</label>  
+                            {{ formresultado.casa_gol(class="form-control", id="casa_gol") }}
+                        </div>
+                        <div class="col-2"><h4> X </h4></div>
+                        <div class="col-5">
+                            <label for="fora_gol", class="form-label">{{ selecao_fora.nome }}</label> 
+                            {{ formresultado.fora_gol(class="form-control", id="fora_gol") }}     
+                        </div>
+                        <div class="col-5 mt-4">
+                            {{ formresultado.status.label(class="form-label", for="status")}}     
+                            {{ formresultado.status(class="form-select", id="status")}}
+                        </div>
+                    </div>                         
+                </div>
+                <div class="row justify-content-center text-center"><div class="col-4">{{ formresultado.btn_submit(class="btn btn-dark") }}</div></div>
+            </form>
+        </div>
+        
+    </div>
+</div>
+
+{% endblock %}
