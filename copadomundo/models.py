@@ -36,9 +36,11 @@ class Selecao(database.Model):
     gols_sofrido = database.Column(database.Integer, default=0)
     vitorias = database.Column(database.Integer, default=0)
     derrotas = database.Column(database.Integer, default=0)
+    empates = database.Column(database.Integer, default=0)
     qnt_jogos = database.Column(database.Integer, default=0)
     partidas = database.relationship('Partida', secondary=partida_selecao, lazy='subquery', backref=database.backref('selecoes', lazy=True))
-
+        
+    
     def add_selecoes(self):
         selecoes = ['Países Baixos', 'Equador', 'Senegal', 'Catar', 'Inglaterra', 'EUA', 'Irã', 'País de Gales',
                     'Polônia', 'Argentina', 'México', 'Arábia Saudita', 'França', 'Dinamarca', 'Tunísia', 'Austrália', 'Alemanha',
@@ -77,6 +79,7 @@ class Selecao(database.Model):
                     database.session.commit()
                 except Exception as e:
                     print('Erro ao add as selecoes: ', e)
+            
 
 
 class Partida(database.Model):
@@ -106,6 +109,8 @@ class Palpite(database.Model):
     id_partida = database.Column(database.Integer, database.ForeignKey('partida.id'), nullable=False)
     palpite = database.Column(database.String, nullable=False)
     status = database.Column(database.String)
+    
+
 
 
 
