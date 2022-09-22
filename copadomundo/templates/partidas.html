@@ -24,14 +24,14 @@
                             <div class="col-1 px-0 ps-1">Grupo {{ partida.selecoes[0].grupo.nome_grupo }}</div>
                             <div class="col-1">{{ partida.data_partida.time() }}</div>
                             <div class="col-3">{{ partida.selecoes[0].nome }} X {{ partida.selecoes[1].nome }}</div>
-                            <div class="col-5 offset-2">
+                            <div class="col-5 offset-1">
                                 <div class="row justify-content-around text-center">
                                     <div class="col-4 px-0"><a href="" class="btn btn-success px-5 m-0">Casa</a></div>
                                     <div class="col-4 px-0"><a href="" class="btn btn-warning px-5 m-0">Empate</a></div>
                                     <div class="col-4 px-0"><a href="" class="btn btn-success px-5 m-0">Fora</a></div>
-                                </div>
-                                    
+                                </div>                                  
                             </div>
+                            <div class="col-1"><a href="{{ url_for('definir_resultado', id_partida=partida.id) }}" class="btn btn-danger">Definir Resultado</a></div>
                             <hr class="my-3 ">
                         </div>
                     </div>             
