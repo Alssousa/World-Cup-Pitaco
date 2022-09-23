@@ -134,9 +134,10 @@ p a{
 ul a{
     color: #fff;
     font-size: 14.5px;
+    padding-bottom: 16px;
 }
 ul a:hover{
-    border-bottom: #730e2e solid 1px;
+    border-bottom: #520118 solid 2px;
     color: #9c163c;
-    transition: 0.1s  ;
+    transition: 0.2s;
 }
