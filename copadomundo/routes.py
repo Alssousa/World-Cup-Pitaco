@@ -210,7 +210,7 @@ def fase_grupos():
     grupos = Grupo.query.all()
     
     
-    return render_template('tela_grupos.html', selecoes=selecoes, grupos=grupos, enumerate=enumerate, pos=pos, int=int)
+    return render_template('tela_grupos.html', selecoes=selecoes, grupos=grupos, enumerate=enumerate)
 
 
 @app.route('/usuarios/ranking')
