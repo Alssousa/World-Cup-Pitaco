@@ -137,7 +137,7 @@ ul a{
     padding-bottom: 16px;
 }
 ul a:hover{
-    border-bottom: #520118 solid 2px;
+    border-bottom: #520118 solid 3px;
     color: #9c163c;
     transition: 0.2s;
 }

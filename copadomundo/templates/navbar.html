@@ -2,7 +2,7 @@
         <div class="row align-items-center w-100">
             <div class="col-3 align-self-center justify-content-center" style="display:flex;">
                 <img src="/static/img/1.png" style="width: 35px; height: 35px;" alt="">
-                <a class="" href="{{ url_for('home') }}" style="text-decoration: none;"><h4 style=" font-weight: 600; color:#fff;">World Cup Pitaco</h4></a>
+                <a class="" href="{{ url_for('home') }}" style="text-decoration: none; padding-left: 5px;"><h4 style=" font-weight: 600; color:#fff;">World Cup Pitaco</h4></a>
             </div>
             <div class="col-9" style="">
                 <div class="row justify-content-end">
@@ -18,16 +18,22 @@
                     {% else %}
                             <a href="{{ url_for('add_partida') }}" ><li class="list-unstyled list-inline-item mx-2 fs-6">Adicionar Partida</li></a>
                     {% endif%}
-                        </ul>
-                    </div> 
+                        
                     {% if current_user.is_authenticated %} 
+<<<<<<< HEAD
                     <div class="col-1 text-center m-0 p-0 align-items-center" style="font-size: 16px;">
                         <div class="row justify-content-center align-items-center p-0 m-0">
                             <div class="col-6 p-0 m-0"><a href="" class=" fs-6" style="text-decoration: none;">{{ current_user.username }}</a></div>
                             <div class="col-6 p-0 m-0"><a href="{{ url_for('logout') }}" class=" fs-6"><i class="bi bi-box-arrow-left fs-3"></i></a></div>
                         </div>                   
                     </div>
+=======
+                        <a href=""><li class="list-unstyled list-inline-item mx-2 font-monospace fs-6">{{ current_user.username }}</li></a>
+                        <a href="{{ url_for('logout') }}"><li class="list-unstyled list-inline-item mx-2 font-monospace fs-6">Sair</li></a>                  
+>>>>>>> db2a9767709600c7cf5ecb46df75b60d6cb8db8d
                     {% endif %} 
+                    </ul>
+                </div> 
                 </div>                                      
             </div>
         </div>      
