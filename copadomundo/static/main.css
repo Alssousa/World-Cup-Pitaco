@@ -123,3 +123,12 @@ p a{
 
 
 /*-----------------------END CSS DO GRUPOS--------------------------------------*/
+ul a{
+    color: #fff;
+    font-size: 14.5px;
+}
+ul a:hover{
+    border-bottom: #730e2e solid 1px;
+    color: #9c163c;
+    transition: 0.1s  ;
+}
