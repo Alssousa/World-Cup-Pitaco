@@ -82,7 +82,6 @@ def add_partida():
     formaddpartida.selecao_fora.choices = [(selecao.id, selecao.nome) for selecao in Selecao.query.filter_by(id_grupo=1).all()]
        
     if formaddpartida.is_submitted():
-        print("\nENTROU AKIIIIIIIIIIIII\n")
         selecao_casa = Selecao.query.get(formaddpartida.selecao_casa.data)
         selecao_fora = Selecao.query.get(formaddpartida.selecao_fora.data)
         data_partida = formaddpartida.data_partida.data
@@ -206,7 +205,7 @@ def palpite(partida):
 
 @app.route('/selecao/grupos', methods=['GET', 'POST'])
 def fase_grupos():
-    selecoes = Selecao.query.order_by(Selecao.pontos.desc()).all()
+    selecoes = Selecao.query.order_by(Selecao.pontos.desc(), Selecao.vitorias.desc(), Selecao.gols_sofrido).all()
     grupos = Grupo.query.all()
     
     
