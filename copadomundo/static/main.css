@@ -1,8 +1,14 @@
 body{
-    background-color:  #730e2e;
-    background-size: cover;
-    background-position: center;
+    background-repeat: no-repeat; background-attachment: fixed; background-size: cover;
 }
+
+.container {background-color: #130912e8;}
+
+.transparent-1 {background-color: #130912e8;}
+
+.transparent-2 {background-color: #130912f6;}
+
+.transparent-3 {background-color: #1b0f1af6;}
 
 .white{
     color: white;
@@ -12,6 +18,8 @@ body{
     color: black;
 }
 
+
+/* ------Login------ */
 .back{
     display: flex;
     height: 100vh;
@@ -103,7 +111,7 @@ p a{
     text-decoration: none;
 }
 
-/*-----------------------CSS DO GRUPOS------------------------------------------*/
+/*------------------------------CSS DO GRUPOS------------------------------------*/
 
 .dt{
     background-color: black;
