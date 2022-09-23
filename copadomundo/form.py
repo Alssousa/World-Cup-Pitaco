@@ -37,3 +37,8 @@ class FormLogin(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     btn_submit = SubmitField('Login')
+    
+    
+class FormComentario(FlaskForm):
+    corpo = TextAreaField('Corpo do texto', validators=[Length(1, 300), DataRequired()])
+    btn_submit_comentario = SubmitField("Comentar")
