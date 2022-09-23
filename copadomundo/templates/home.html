@@ -7,13 +7,8 @@
     <div class="row mb-5">
         <div class="col-12 font-monospace white"><h5>Jogos de Hoje</h5></div>
         {% for partida in partidas %}           
-<<<<<<< HEAD
             {% if partida.data_partida.date() == data_atual.today().date() and partida.data_partida.time() > horas_meia_noite.time() and partida.status != "Finalizada" %} 
         <div class="col-3 border rounded-2 bg-light p-2 shadow m-1 mb-3" style="height: 200px; width: 24%;">
-=======
-            {% if partida.data_partida.date() == data_atual.today().date() and partida.data_partida.time() > horas_meia_noite.time() %} 
-        <div class="col-3 border rounded-2 bg-light p-2 shadow m-1 mb-3" style="height: 170px; width: 49%;">
->>>>>>> db2a9767709600c7cf5ecb46df75b60d6cb8db8d
             <div class="row">
                 <div class="col-12">
                     <p>Data: {{ partida.data_partida.day }}/{{ partida.data_partida.month }}/{{ partida.data_partida.year }}<br>Hora: {{ partida.data_partida.time() }}</p>
@@ -54,13 +49,8 @@
     <div class="row mb-5">
         <div class="col-12 font-monospace white"><h5>Jogos de Amanhã</h5></div>
         {% for partida in partidas %}       
-<<<<<<< HEAD
             {% if partida.data_partida.date() == (data_atual.today().date() + timedelta(1)) and partida.status != "Finalizada" %}
         <div class="col-3 border rounded-2 bg-light p-2 shadow m-1 mb-3" style="height: 200px; width: 24%;">
-=======
-            {% if partida.data_partida.date() == (data_atual.today().date() + timedelta(1)) %}
-        <div class="col-3 border rounded-2 bg-light p-2 shadow m-1 mb-3" style="height: 170px; width: 30%;">
->>>>>>> db2a9767709600c7cf5ecb46df75b60d6cb8db8d
             <div class="row">
                 <div class="col-12">
                     <p>Data: {{ partida.data_partida.day }}/{{ partida.data_partida.month }}/{{ partida.data_partida.year }}<br>Hora: {{ partida.data_partida.time() }}</p>
