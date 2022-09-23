@@ -5,8 +5,8 @@
                 <a class="" href="{{ url_for('home') }}" style="text-decoration: none; padding-left: 5px;"><h4 style=" font-weight: 600; color:#fff;">World Cup Pitaco</h4></a>
             </div>
             <div class="col-9" style="">
-                <div class="row justify-content-end">
-                    <div class="col-5 align-self-center">
+                <div class="row justify-content-end align-items-center">
+                    <div class="col-7 align-self-center">
                         <ul class="list-inline p-0 m-0 text-center">
                             <a href="{{ url_for('home') }}"><li class="list-unstyled list-inline-item mx-2 fs-6">Home</li></a>
                             <a href="{{ url_for('todas_partidas') }}"><li class="list-unstyled list-inline-item mx-2 fs-6">Partidas</li></a>       
@@ -20,20 +20,11 @@
                     {% endif%}
                         
                     {% if current_user.is_authenticated %} 
-<<<<<<< HEAD
-                    <div class="col-1 text-center m-0 p-0 align-items-center" style="font-size: 16px;">
-                        <div class="row justify-content-center align-items-center p-0 m-0">
-                            <div class="col-6 p-0 m-0"><a href="" class=" fs-6" style="text-decoration: none;">{{ current_user.username }}</a></div>
-                            <div class="col-6 p-0 m-0"><a href="{{ url_for('logout') }}" class=" fs-6"><i class="bi bi-box-arrow-left fs-3"></i></a></div>
-                        </div>                   
-                    </div>
-=======
-                        <a href=""><li class="list-unstyled list-inline-item mx-2 font-monospace fs-6">{{ current_user.username }}</li></a>
-                        <a href="{{ url_for('logout') }}"><li class="list-unstyled list-inline-item mx-2 font-monospace fs-6">Sair</li></a>                  
->>>>>>> db2a9767709600c7cf5ecb46df75b60d6cb8db8d
+                            <a href="" class=" fs-6" style="text-decoration: none;">{{ current_user.username }}</a>
+                            <a href="{{ url_for('logout') }}" class=" fs-6"><i class="bi bi-box-arrow-left fs-3"></i></a>                 
                     {% endif %} 
-                    </ul>
-                </div> 
+                        </ul>
+                    </div> 
                 </div>                                      
             </div>
         </div>      
