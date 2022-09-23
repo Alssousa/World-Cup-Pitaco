@@ -13,7 +13,7 @@ def home():
     datas_partidas = []
     data_atual = datetime.now()
     for partida in partidas:
-        datas_partidas.append(partida.data_partida)
+        datas_partidas.append(str(partida.data_partida.date()))
     datas_partidas = list(OrderedDict.fromkeys(datas_partidas))
     
     partida = Partida.query.get(4)
@@ -22,7 +22,7 @@ def home():
     print(horas_meia_noite)
 
     
-    return render_template('home.html', partidas=partidas, data_atual=data_atual, horas_meia_noite=horas_meia_noite, timedelta=timedelta)
+    return render_template('home.html', partidas=partidas, data_atual=data_atual, horas_meia_noite=horas_meia_noite, timedelta=timedelta, datas_partidas=datas_partidas, str=str)
 
 
 @app.route('/usuario/novaconta', methods=['GET', 'POST'])
@@ -91,23 +91,26 @@ def add_partida():
         data = datetime(data_partida.year, data_partida.month, data_partida.day, hora_partida.hour, hora_partida.minute, 0)
         partida = Partida(descricao=descricao, data_partida=data)
         
-        if not Partida.query.filter_by(descricao=descricao).filter_by(data_partida=data_partida).first():
-            try:
-                database.session.add(partida)
-                database.session.commit()
-            except Exception as e:
-                print("Erro ao criar a partida: " + str(e))
-            
-            if selecao_casa and selecao_fora:
-                partida = Partida.query.filter_by(descricao=descricao).first()
-                print(f"\n{partida}\n")
-                selecao_casa.partidas.append(partida)
-                selecao_fora.partidas.append(partida)   
-                selecao_casa.qnt_jogos += 1   
-                selecao_fora.qnt_jogos += 1 
-                database.session.add_all([selecao_casa, selecao_fora])
-                database.session.commit()
-                print("\n\nPartida vinculada as selecoes")
+        if selecao_casa.nome != selecao_fora.nome:
+            if not Partida.query.filter_by(descricao=descricao).filter_by(data_partida=data_partida).first():
+                try:
+                    database.session.add(partida)
+                    database.session.commit()
+                except Exception as e:
+                    print("Erro ao criar a partida: " + str(e))
+                
+                if selecao_casa and selecao_fora:
+                    partida = Partida.query.filter_by(descricao=descricao).first()
+                    print(f"\n{partida}\n")
+                    selecao_casa.partidas.append(partida)
+                    selecao_fora.partidas.append(partida)   
+                    selecao_casa.qnt_jogos += 1   
+                    selecao_fora.qnt_jogos += 1 
+                    database.session.add_all([selecao_casa, selecao_fora])
+                    database.session.commit()
+                    print("\n\nPartida vinculada as selecoes")
+        else:
+            flash('Não pode adicionar uma partida onde as selecao casa e fora são as mesmas.', 'alert-danger')
         
         return redirect(url_for('add_partida'))
     
@@ -133,14 +136,16 @@ def selecoes(grupo):
 
 @app.route('/selecoes/partida/todas', methods=['POST', 'GET'])
 def todas_partidas():
-    partidas = Partida.query.order_by(Partida.data_partida).all()
+    partidas = Partida.query.filter(Partida.status.not_like('Finalizada')).order_by(Partida.data_partida).all()
     datas_partidas = []
     data_atual = datetime.now()           
     
     if partidas:
         for partida in partidas:
-            datas_partidas.append(partida.data_partida)
-        datas_partidas = list(OrderedDict.fromkeys(datas_partidas))
+            if partida.data_partida.date() not in datas_partidas:
+                datas_partidas.append(partida.data_partida.date())
+
+        print(datas_partidas)
 
     return render_template('partidas.html', partidas=partidas, datas_partidas=datas_partidas, data_atual=data_atual)
 
@@ -163,24 +168,20 @@ def definir_resultado(id_partida):
         
         selecao_casa.gols_marcado = casa_gol
         selecao_fora.gols_marcado = fora_gol
+        selecao_casa.gols_sofrido += fora_gol
+        selecao_fora.gols_sofrido += casa_gol
         
         if casa_gol > fora_gol:
             selecao_casa.vitorias += 1
-            selecao_casa.pontos += 3
-            selecao_casa.gols_sofrido += fora_gol
-            selecao_fora.derrotas += 1
-            selecao_fora.gols_sofrido += casa_gol
+            selecao_casa.pontos += 3           
+            selecao_fora.derrotas += 1          
         elif fora_gol > casa_gol:
             selecao_fora.vitorias += 1
-            selecao_fora.pontos += 3
-            selecao_fora.gols_sofrido += casa_gol
+            selecao_fora.pontos += 3           
             selecao_casa.derrotas += 1
-            selecao_casa.gols_sofrido += fora_gol
         else:
             selecao_casa.pontos += 1
-            selecao_fora.pontos += 1
-            selecao_casa.gols_sofrido += fora_gol
-            selecao_fora.gols_sofrido += casa_gol
+            selecao_fora.pontos += 1           
             selecao_fora.empates += 1
             selecao_casa.empates += 1
                    
@@ -188,7 +189,7 @@ def definir_resultado(id_partida):
             print("akiiii")
             database.session.add_all([selecao_casa, selecao_fora, partida])
             database.session.commit()
-            flash('Resultado definido com sucesso', 'success')
+            flash('Resultado definido com sucesso', 'alert-success')
             return redirect(url_for('todas_partidas'))
         except Exception as e:
             print("Erro ao definir resultado da partida: " + str(e))
@@ -207,8 +208,9 @@ def palpite(partida):
 def fase_grupos():
     selecoes = Selecao.query.all()
     grupos = Grupo.query.all()
+    pos = ['1', '2', '3', '4']
     
-    return render_template('tela_grupos.html', selecoes=selecoes, grupos=grupos)
+    return render_template('tela_grupos.html', selecoes=selecoes, grupos=grupos, enumerate=enumerate, pos=pos)
 
 
 @app.route('/usuarios/ranking')
