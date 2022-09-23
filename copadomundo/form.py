@@ -6,7 +6,7 @@ from copadomundo.models import Usuario
 
 
 class FormAddPartida(FlaskForm):
-    grupo = SelectField('Grupo', choices=[('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'), ('E', 'E'), ('F', 'F'), ('G', 'H'), ('H', 'H')])
+    grupo = SelectField('Grupo', choices=[('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'), ('E', 'E'), ('F', 'F'), ('G', 'G'), ('H', 'H')])
     selecao_casa = SelectField('Seleção Casa', choices=[])
     selecao_fora = SelectField('Seleção Fora', choices=[])
     data_partida = DateField('Data da Partida', validators=[DataRequired()])
