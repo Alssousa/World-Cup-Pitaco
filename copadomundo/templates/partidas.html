@@ -2,37 +2,37 @@
 
 {% block body %}
 
-<div class="container rounded-2 p-3"style="background-color: #f6f8f9;">
-    <div class="row mb-5">
+<div class="container rounded-2 p-3 transparent-2 white"style="">
+    <div class="row my-5">
         <div class="col-12">
             <h4>Todas as Partidas</h4>
         </div>
     </div>
     {% if partidas %}
         {% for data_partida in datas_partidas %}
-            {% set dif = data_partida - data_atual %}
+            {% set dif = data_partida - data_atual.date() %}
             {% if dif.days >= -1 %}
         <div class="row align-items-center mb-1">
-            <div class="col-12 align-self-center p-2 mb-2" style="background-color: #e0e5eb;"><h5 class="m-0">{{data_partida.day}}/{{data_partida.month}}/{{data_partida.year}}</h5></div>
+            <div class="col-12 align-self-center mb-2" style="background-color: #e0e5eb;"><h5 class="m-0 black">{{data_partida.day}}/{{data_partida.month}}/{{data_partida.year}}</h5></div>
         </div>
-                {% for partida in partidas %}
-            
-                    {% if partida.data_partida == data_partida%}
-                <div class="row mb-0 ms-4" style="">
+                {% for partida in partidas %}            
+                    {% if partida.data_partida.date() == data_partida %}
+                <div class="row mb-2 transparent-3 p-2" style="">
                     <div class="col-12">
                         <div class="row align-items-center">
                             <div class="col-1 px-0 ps-1">Grupo {{ partida.selecoes[0].grupo.nome_grupo }}</div>
                             <div class="col-1">{{ partida.data_partida.time() }}</div>
                             <div class="col-3">{{ partida.selecoes[0].nome }} X {{ partida.selecoes[1].nome }}</div>
                             <div class="col-5 offset-1">
-                                <div class="row justify-content-around text-center">
+                                <div class="row justify-content-around text-center" style="width: 98%;">
                                     <div class="col-4 px-0"><a href="" class="btn btn-success px-5 m-0">Casa</a></div>
                                     <div class="col-4 px-0"><a href="" class="btn btn-warning px-5 m-0">Empate</a></div>
                                     <div class="col-4 px-0"><a href="" class="btn btn-success px-5 m-0">Fora</a></div>
                                 </div>                                  
                             </div>
-                            <div class="col-1"><a href="{{ url_for('definir_resultado', id_partida=partida.id) }}" class="btn btn-danger">Definir Resultado</a></div>
-                            <hr class="my-3 ">
+                            {% if current_user.admin == "True" %}
+                            <div class="col-1"><a href="{{ url_for('definir_resultado', id_partida=partida.id) }}" class="btn btn-danger bi-pencil-fill"></a></div>
+                            {% endif %}
                         </div>
                     </div>             
                 </div>           

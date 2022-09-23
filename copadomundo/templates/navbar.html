@@ -14,17 +14,13 @@
                             <a href="{{ url_for('ranking') }}"><li class="list-unstyled list-inline-item mx-2">Ranking Usuarios</li></a>                  
                     {% if not current_user.is_authenticated %}                  
                             <a href="{{ url_for('login') }}"><li class="list-unstyled list-inline-item mx-2">Login</li></a>
-                            <a href="{{ url_for('add_usuario') }}"><li class="list-unstyled list-inline-item mx-2">Cadastra-se</li></a>                                        
+                            <a href="{{ url_for('add_usuario') }}"><li class="list-unstyled list-inline-item mx-2">Cadastra-se</li></a> 
+                    {% else %}
+                            <a href="{{ url_for('add_partida') }}" style="color: rgb(80, 3, 3);"><li class="list-unstyled list-inline-item mx-2">Adicionar Partida</li></a>
                     {% endif%}
                         </ul>
                     </div> 
                     {% if current_user.is_authenticated %} 
-                    <div class="col-3 align-self-center text-center">
-                        <ul class="list-inline p-0 m-0 text-center" style="font-size: 16px;">
-                            <a href="{{ url_for('add_partida') }}" style="color: rgb(80, 3, 3);"><li class="list-unstyled list-inline-item mx-2">Adicionar Partida</li></a>
-                            <a href="" style="color: rgb(80, 3, 3);"><li class="list-unstyled list-inline-item mx-2">Definir Resultado</li></a>
-                        </ul>    
-                    </div>
                     <div class="col-3 ms-auto text-center">
                         <a href=""><li class="list-unstyled list-inline-item mx-2 font-monospace fs-6">{{ current_user.username }}</li></a>
                         <a href="{{ url_for('logout') }}"><li class="list-unstyled list-inline-item mx-2 font-monospace fs-6">Sair</li></a>

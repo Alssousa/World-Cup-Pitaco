@@ -16,13 +16,20 @@ class Usuario(database.Model, UserMixin):
     score = database.Column(database.Integer, default=0)
     acertos = database.Column(database.Integer, default=0)
     erros = database.Column(database.Integer, default=0)
-    admin = database.Column(database.Boolean, default=False)
+    admin = database.Column(database.String, default=False)
     
 
 partida_selecao = database.Table('partidas',
     database.Column('selecao_id', database.Integer, database.ForeignKey('selecao.id'), primary_key=True),
     database.Column('partida_id', database.Integer, database.ForeignKey('partida.id'), primary_key=True)
 )
+
+
+class Comentario(database.Model):
+    id = database.Column(database.Integer, primary_key=True)
+    data_criacao =  database.Column(database.DateTime, nullable=False, default=datetime.utcnow)
+    corpo = database.Column(database.String, nullable=False)
+    id_usuario = database.Column(database.Integer, database.ForeignKey('usuario.id'), nullable=False)
 
 
 class Selecao(database.Model):
