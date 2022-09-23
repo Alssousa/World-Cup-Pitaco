@@ -206,9 +206,9 @@ def palpite(partida):
 
 @app.route('/selecao/grupos', methods=['GET', 'POST'])
 def fase_grupos():
-    selecoes = Selecao.query.all()
+    selecoes = Selecao.query.order_by(Selecao.pontos.desc()).all()
     grupos = Grupo.query.all()
-    pos = ['1', '2', '3', '4']
+    
     
     return render_template('tela_grupos.html', selecoes=selecoes, grupos=grupos, enumerate=enumerate, pos=pos, int=int)
 
