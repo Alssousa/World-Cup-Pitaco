@@ -7,7 +7,7 @@
         <div class="row mb-4"><div class="col-12"><h4 class="white">Classificação de Grupo</h4></div></div>
         <div class="row p-2" style="background-color: #17181f;">     
             {% for grupo in grupos %} 
-            {% set int(aux) = 0 %}
+            {% set aux = namespace(value=0) %}
             <div class="col-6 ">                             
                 <div class="grupo"><p href="">Grupo {{ grupo.nome_grupo }}</p></div>
                 <table class="table table-dark table-hover">
@@ -25,12 +25,12 @@
                         </tr>
                     </thead>
                     {% for i, selecao in enumerate(selecoes) %}   
-                        
-                        {% if selecao.grupo.nome_grupo == grupo.nome_grupo %}       
+                        {% if selecao.grupo.nome_grupo == grupo.nome_grupo %}    
+                            {% set aux.value =  aux.value + 1 %}    
                     <tbody class="">
 
                         <tr class="rt">                          
-                            <td>{{ pos[aux] }}</td>                           
+                            <td>{{ aux.value }}</td>                           
                             <td class="align-self-center" style="width: 45%;">
                                 <div class="row">
                                     <div class="col-2 nt"><img src="{{ url_for('static', filename='img/b1.png') }}" alt="" width="20px"></div>
@@ -45,12 +45,10 @@
                             <td class="align-self-center">{{ selecao.gols_sofrido }}</td>
                             <td>{{ selecao.gols_marcado - selecao.gols_sofrido }}</td>
                         </tr class="align-self-center">
-                    </tbody>  
-                             
-                                                             
-                        {% endif %}
-                        {% set int(aux) = int(aux) + 1 %} 
-                        <h3 class="white">{{ aux }}</h3>
+                    </tbody>                             
+                                                         
+                        {% endif %}                       
+                        
                     {% endfor %}
                 </table>               
             </div> 
