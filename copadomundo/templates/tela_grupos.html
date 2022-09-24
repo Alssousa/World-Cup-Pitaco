@@ -34,7 +34,7 @@
                             <td>{{ aux.value }}</td>                           
                             <td class="align-self-center" style="width: 45%;">
                                 <div class="row">
-                                    <div class="col-2 nt"><img src="{{ url_for('static', filename='img/b1.png') }}" alt="" width="20px"></div>
+                                    <div class="col-2 nt"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(selecao.foto_selecao)) }}" alt="" width="20px" height="15px"></div>
                                     <div class="col-10"><p class="m-0">{{ selecao.nome }}</p></div>
                                 </div>
                             </td>
