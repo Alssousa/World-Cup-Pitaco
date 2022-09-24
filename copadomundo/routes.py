@@ -9,7 +9,9 @@ from datetime import datetime, date, timedelta
 
 @app.route('/')
 def home():
-    partidas = Partida.query.order_by(Partida.data_partida).all()
+    partidas = Partida.query.filter(Partida.status.not_like('Finalizada')).order_by(Partida.data_partida).all()
+    partidas_finalizadas = Partida.query.filter_by(status="Finalizada").order_by(Partida.data_partida).all()
+    print(partidas_finalizadas)
     datas_partidas = []
     data_atual = datetime.now()
     for partida in partidas:
@@ -22,7 +24,7 @@ def home():
     print(horas_meia_noite)
 
     
-    return render_template('home.html', partidas=partidas, data_atual=data_atual, horas_meia_noite=horas_meia_noite, timedelta=timedelta, datas_partidas=datas_partidas, str=str)
+    return render_template('home.html', partidas=partidas, data_atual=data_atual, horas_meia_noite=horas_meia_noite, timedelta=timedelta, datas_partidas=datas_partidas, str=str, partidas_finalizadas=partidas_finalizadas)
 
 
 @app.route('/usuario/novaconta', methods=['GET', 'POST'])
@@ -160,9 +162,12 @@ def definir_resultado(id_partida):
     selecao_fora = Selecao.query.get(partida.selecoes[1].id)
     
     print(f"selecao casa: {selecao_casa.nome}, selecao fora: {selecao_fora.nome}")
-    if formresultado.validate_on_submit():
+    if formresultado.is_submitted():
+        print("teste")
         casa_gol = formresultado.casa_gol.data
+        print(f"gol: casa: {casa_gol}")
         fora_gol = formresultado.fora_gol.data
+        print(f"fol fora: {fora_gol}")
         status = formresultado.status.data
         
         selecao_casa.gols_marcado = casa_gol
@@ -179,6 +184,7 @@ def definir_resultado(id_partida):
             selecao_fora.pontos += 3           
             selecao_casa.derrotas += 1
         else:
+            print("touuuuuuuu aki")
             selecao_casa.pontos += 1
             selecao_fora.pontos += 1           
             selecao_fora.empates += 1
