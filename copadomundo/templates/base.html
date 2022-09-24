@@ -22,7 +22,7 @@
     {% with mensagens = get_flashed_messages(with_categories=True) %}
         {% if mensagens %}
             {% for categoria, mensagem in mensagens %}
-                <div class="alert container {{ categoria }} fade show " role="alert">
+                <div class="alert container {{ categoria }} fade show mt-2" role="alert">
                     <div class="row align-content-center">
                         <div class="col-11 align-self-center"><strong>{{ mensagem }}</strong></div>
                         <div class="col-1 justify-content-end"><button type="button" class="btn-close btn-success" data-bs-dismiss="alert" aria-label="Close" style="background-color: red;"></button></div>
