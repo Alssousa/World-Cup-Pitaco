@@ -5,24 +5,21 @@
                 <a class="" href="{{ url_for('home') }}" style="text-decoration: none; padding-left: 5px;"><h4 style=" font-weight: 600; color:#fff;">World Cup Pitaco</h4></a>
             </div>
             <div class="col-9" style="">
-                <div class="row justify-content-end align-items-center">
-                    <div class="col-7 align-self-center">
-                        <ul class="list-inline p-0 m-0 text-center">
-                            <a href="{{ url_for('home') }}"><li class="list-unstyled list-inline-item mx-2 fs-6">Home</li></a>
-                            <a href="{{ url_for('todas_partidas') }}"><li class="list-unstyled list-inline-item mx-2 fs-6">Partidas</li></a>       
-                            <a href="{{ url_for('fase_grupos') }}"><li class="list-unstyled list-inline-item mx-2 fs-6">Tabela de Classificação</li></a>  
-                            <a href="{{ url_for('ranking') }}"><li class="list-unstyled list-inline-item mx-2 fs-6">Ranking Usuarios</li></a>                  
+                <div class="row justify-content-end">
+                    <div class="col-7">
+                        <ul class="list-inline p-0 mb-2 text-center" style="">
+                            <a class="p-0" href="{{ url_for('home') }}"><li class="list-unstyled list-inline-item mx-2 fs-6">Home</li></a>
+                            <a class="p-0" href="{{ url_for('todas_partidas') }}"><li class="list-unstyled list-inline-item mx-2 fs-6">Partidas</li></a>       
+                            <a class="p-0" href="{{ url_for('fase_grupos') }}"><li class="list-unstyled list-inline-item mx-2 fs-6">Tabela de Classificação</li></a>  
+                            <a class="p-0" href="{{ url_for('ranking') }}"><li class="list-unstyled list-inline-item mx-2 fs-6">Ranking Usuarios</li></a>                  
                     {% if not current_user.is_authenticated %}                  
-                            <a href="{{ url_for('login') }}"><li class="list-unstyled list-inline-item mx-2 fs-6">Login</li></a>
-                            <a href="{{ url_for('add_usuario') }}"><li class="list-unstyled list-inline-item mx-2 fs-6">Cadastra-se</li></a> 
+                            <a class="p-0" href="{{ url_for('login') }}"><li class="list-unstyled list-inline-item mx-2 fs-6">Login</li></a>
+                            <a class="p-0" href="{{ url_for('add_usuario') }}"><li class="list-unstyled list-inline-item mx-2 fs-6">Cadastra-se</li></a> 
                     {% else %}
-                            <a href="{{ url_for('add_partida') }}" ><li class="list-unstyled list-inline-item mx-2 fs-6">Adicionar Partida</li></a>
+                            <a class="p-0" href="{{ url_for('add_partida') }}" ><li class="list-unstyled list-inline-item mx-2 fs-6">Adicionar Partida</li></a>
+                            <a class="p-0" href=""><li class="list-unstyled list-inline-item mx-2 fs-6 align-self-center">{{ current_user.username }}</li></a>
+                            <a class="" href="{{ url_for('logout') }}"><li class="list-unstyled list-inline-item mx-2 fs-6"><i class="bi bi-box-arrow-left fs-3"></i></li></a>  
                     {% endif%}
-                        
-                    {% if current_user.is_authenticated %} 
-                            <a href="" class=" fs-6" style="text-decoration: none;">{{ current_user.username }}</a>
-                            <a href="{{ url_for('logout') }}" class=" fs-6"><i class="bi bi-box-arrow-left fs-3"></i></a>                 
-                    {% endif %} 
                         </ul>
                     </div> 
                 </div>                                      
