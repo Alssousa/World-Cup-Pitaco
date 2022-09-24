@@ -1,6 +1,4 @@
-body{
-    background-repeat: no-repeat; background-attachment: fixed; background-size: cover;
-}
+body{background-repeat: no-repeat; background-attachment: fixed; background-size: cover;}
 
 .container {background-color: #130912e8;}
 
@@ -10,13 +8,9 @@ body{
 
 .transparent-3 {background-color: #1b0f1af6;}
 
-.white{
-    color: white;
-}
+.white{color: white;}
 
-.black{
-    color: rgb(0, 0, 0);
-}
+.black{color: rgb(0, 0, 0);}
 
 
 /* ------Login------ */
