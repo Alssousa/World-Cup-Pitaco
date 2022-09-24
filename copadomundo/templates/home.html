@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<div class="container font-monospace p-0" style="background-color: #130912e8;">
+<div class="container font-monospace p-0 pb-2" style="background-color: #130912e8;">
 
     <!--Slide Eventos e entre outros-->
     <div class="row transparent-2 mx-0 mb-5 p-0 mt-1 justify-content-center" style="height: 300px;">
@@ -179,7 +179,7 @@
     <div class="row white m-2 pt-4 justify-content-center transparent-2 px-3" style="">
         <div class="col-12"><h4 class="white">Últimos Jogos</h4></div>
         {% for partida in partidas_finalizadas %}
-        <div class="row p-2 align-items-center transparent-3" style="">
+        <div class="row p-2 align-items-center transparent-3 mb-1" style="">
             <div class="col-2 text-center"><div class="w-50 black bg-info rounded-2 align-self-center">{{ partida.data_partida.date().day }}/{{ partida.data_partida.date().month }}/{{ partida.data_partida.date().year }}</div></div>
             <div class="col-2 text-center"><div class="w-50 black bg-light rounded-2 align-self-center">Grupo {{ partida.selecoes[0].grupo.nome_grupo }}</div></div>
             <div class="col-3 text-center">
