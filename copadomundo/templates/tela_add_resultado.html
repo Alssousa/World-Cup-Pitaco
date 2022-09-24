@@ -10,8 +10,8 @@
                 {{ formresultado.csrf_token }}
                 <div class="modal-body rounded-2" style="height: 400px;">
                     <div class="row justify-content-between text-center mb-2 mt-4">
-                        <div class="col-5"><img class="shadow-lg" src="{{ url_for('static', filename='img/b1.png') }}" alt="" width="100px"></div>
-                        <div class="col-5"><img class="shadow-lg" src="{{ url_for('static', filename='img/b1.png') }}" alt="" width="100px"></div>
+                        <div class="col-5"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(selecao_casa.foto_selecao)) }}" alt="" width="100px" height="75px"></div>
+                        <div class="col-5"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(selecao_fora.foto_selecao)) }}" alt="" width="100px" height="75px"></div>
                     </div>
                     <div class="row text-center row-cols-2 mb-4">                          
                         <div class="col-5">
