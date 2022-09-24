@@ -39,39 +39,42 @@
         <div class="col-12 font-monospace white"><h5>Jogos de Hoje</h5></div>
         {% for partida in partidas %}           
             {% if partida.data_partida.date() == data_atual.today().date() and partida.data_partida.time() > horas_meia_noite.time() and partida.status != "Finalizada" %} 
-        <div class="col-xxl-3 col-xl-3 col-md-4 col-sm-6 border rounded-2 bg-light p-2 shadow m-1 mb-3">
-            <div class="row">
-                <div class="col-12">
-                    <p>Data: {{ partida.data_partida.day }}/{{ partida.data_partida.month }}/{{ partida.data_partida.year }}<br>Hora: {{ partida.data_partida.time() }}</p>
+        <div class="col-xxl-3 col-xl-3 col-md-6 col-lg-4 col-sm-6 mb-3">
+            <div class="col-12 border rounded-2 bg-light p-2 shadow">
+                <div class="row">
+                    <div class="col-12">
+                        <p>Data: {{ partida.data_partida.day }}/{{ partida.data_partida.month }}/{{ partida.data_partida.year }}<br>Hora: {{ partida.data_partida.time() }}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-5 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[0].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
-                <div class="col-5 offset-2 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[1].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
-            </div>
-            <div class="row align-items-center text-center mb-2 mt-1">
-                <div class="col-5 p-0 m-0">
-                    <h4>{{ partida.selecoes[0].nome }}</h4>
+                <div class="row">
+                    <div class="col-5 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[0].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
+                    <div class="col-5 offset-2 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[1].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
                 </div>
-                <div class="col-2">
-                    <h4>X</h4>
+                <div class="row align-items-center text-center mb-2 mt-1">
+                    <div class="col-5 p-0 m-0 text-truncate">
+                        <h5 class="fw-semibold">{{ partida.selecoes[0].nome }}</h5>
+                    </div>
+                    <div class="col-2">
+                        <h4>X</h4>
+                    </div>
+                    <div class="col-5 p-0 m-0 text-truncate">
+                        <h5 class="fw-semibold">{{ partida.selecoes[1].nome }}</h5>
+                    </div>
                 </div>
-                <div class="col-5 p-0 m-0">
-                    <h4>{{ partida.selecoes[1].nome }}</h4>
-                </div>
-            </div>
-            <div class="row align-items-center text-center font-monospace" >
-                <div class="col-4 p-1">
-                    <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Casa Vence</a>
-                </div>
-                <div class="col-4 m-0 p-0">
-                    <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Empate</a>
-                </div>
-                <div class="col-4 p-1">
-                    <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Fora Vence</a>
+                <div class="row align-items-center text-center font-monospace" >
+                    <div class="col-4 p-1">
+                        <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Casa Vence</a>
+                    </div>
+                    <div class="col-4 m-0 p-0">
+                        <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Empate</a>
+                    </div>
+                    <div class="col-4 p-1">
+                        <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Fora Vence</a>
+                    </div>
                 </div>
             </div>
         </div>
+        
             {% endif %}
         {% endfor %}
         {% if str(data_atual.today().date()) not in datas_partidas %}
@@ -85,36 +88,38 @@
         <div class="col-12 font-monospace white"><h5>Jogos de Amanhã</h5></div>
         {% for partida in partidas %}       
             {% if partida.data_partida.date() == (data_atual.today().date() + timedelta(1)) and partida.status != "Finalizada" %}
-        <div class="col-xxl-3 col-xl-3 col-md-4 col-sm-6 border rounded-2 bg-light p-2 shadow m-1 mb-3">
-            <div class="row">
-                <div class="col-12">
-                    <p>Data: {{ partida.data_partida.day }}/{{ partida.data_partida.month }}/{{ partida.data_partida.year }}<br>Hora: {{ partida.data_partida.time() }}</p>
+        <div class="col-xxl-3 col-xl-3 col-md-6 col-lg-4 col-sm-6 mb-3">
+            <div class="col-12 border rounded-2 bg-light p-2 shadow">
+                <div class="row">
+                    <div class="col-12">
+                        <p>Data: {{ partida.data_partida.day }}/{{ partida.data_partida.month }}/{{ partida.data_partida.year }}<br>Hora: {{ partida.data_partida.time() }}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-5 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[0].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
-                <div class="col-5 offset-2 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[1].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
-            </div>
-            <div class="row align-items-center text-center mb-2 mt-1">
-                <div class="col-5 p-0 m-0">
-                    <h4>{{ partida.selecoes[0].nome }}</h4>
+                <div class="row">
+                    <div class="col-5 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[0].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
+                    <div class="col-5 offset-2 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[1].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
                 </div>
-                <div class="col-2">
-                    <h4>X</h4>
+                <div class="row align-items-center text-center mb-2 mt-1">
+                    <div class="col-5 p-0 m-0 text-truncate">
+                        <h5 class="fw-semibold">{{ partida.selecoes[0].nome }}</h5>
+                    </div>
+                    <div class="col-2">
+                        <h4>X</h4>
+                    </div>
+                    <div class="col-5 p-0 m-0 text-truncate">
+                        <h5 class="fw-semibold">{{ partida.selecoes[1].nome }}</h5>
+                    </div>
                 </div>
-                <div class="col-5 p-0 m-0">
-                    <h4>{{ partida.selecoes[1].nome }}</h4>
-                </div>
-            </div>
-            <div class="row align-items-center text-center font-monospace" >
-                <div class="col-4 p-1">
-                    <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Casa Vence</a>
-                </div>
-                <div class="col-4 m-0 p-0">
-                    <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Empate</a>
-                </div>
-                <div class="col-4 p-1">
-                    <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Fora Vence</a>
+                <div class="row align-items-center text-center font-monospace" >
+                    <div class="col-4 p-1">
+                        <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Casa Vence</a>
+                    </div>
+                    <div class="col-4 m-0 p-0">
+                        <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Empate</a>
+                    </div>
+                    <div class="col-4 p-1">
+                        <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Fora Vence</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -131,36 +136,38 @@
         <div class="col-12 font-monospace white"><h5>Outros Jogos da Semana</h5></div>
         {% for partida in partidas %}
             {% if partida.data_partida.date() >= (data_atual.today().date() + timedelta(2)) and partida.data_partida.date() < (data_atual.today().date() + timedelta(7)) %}
-        <div class="col-xxl-3 col-xl-3 col-md-4 col-sm-6 border rounded-2 bg-light p-2 shadow m-1 mb-3">
-            <div class="row">
-                <div class="col-12">
-                    <p>Data: {{ partida.data_partida.day }}/{{ partida.data_partida.month }}/{{ partida.data_partida.year }}<br>Hora: {{ partida.data_partida.time() }}</p>
+        <div class="col-xxl-3 col-xl-3 col-md-6 col-lg-4 col-sm-6 mb-3">
+            <div class="col-12 border rounded-2 bg-light p-2 shadow">
+                <div class="row">
+                    <div class="col-12">
+                        <p>Data: {{ partida.data_partida.day }}/{{ partida.data_partida.month }}/{{ partida.data_partida.year }}<br>Hora: {{ partida.data_partida.time() }}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-5 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[0].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
-                <div class="col-5 offset-2 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[1].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
-            </div>
-            <div class="row align-items-center text-center mb-2 mt-1">
-                <div class="col-5 p-0 m-0">
-                    <h4>{{ partida.selecoes[0].nome }}</h4>
+                <div class="row">
+                    <div class="col-5 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[0].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
+                    <div class="col-5 offset-2 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[1].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
                 </div>
-                <div class="col-2">
-                    <h4>X</h4>
+                <div class="row align-items-center text-center mb-2 mt-1">
+                    <div class="col-5 p-0 m-0 text-truncate">
+                        <h5 class="fw-semibold">{{ partida.selecoes[0].nome }}</h5>
+                    </div>
+                    <div class="col-2">
+                        <h4>X</h4>
+                    </div>
+                    <div class="col-5 p-0 m-0 text-truncate">
+                        <h5 class="fw-semibold">{{ partida.selecoes[1].nome }}</h5>
+                    </div>
                 </div>
-                <div class="col-5 p-0 m-0">
-                    <h4>{{ partida.selecoes[1].nome }}</h4>
-                </div>
-            </div>
-            <div class="row align-items-center text-center font-monospace" >
-                <div class="col-4 p-1">
-                    <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Casa Vence</a>
-                </div>
-                <div class="col-4 m-0 p-0">
-                    <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Empate</a>
-                </div>
-                <div class="col-4 p-1">
-                    <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Fora Vence</a>
+                <div class="row align-items-center text-center font-monospace" >
+                    <div class="col-4 p-1">
+                        <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Casa Vence</a>
+                    </div>
+                    <div class="col-4 m-0 p-0">
+                        <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Empate</a>
+                    </div>
+                    <div class="col-4 p-1">
+                        <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Fora Vence</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -171,8 +178,7 @@
     <!-- Resultado dos ultimos jogos -->
     <div class="row white m-2 pt-4 justify-content-center transparent-2 px-3" style="">
         <div class="col-12"><h4 class="white">Últimos Jogos</h4></div>
-        {% for partida in partidas %}
-            {% if partida.status == 'Finalizada' %}
+        {% for partida in partidas_finalizadas %}
         <div class="row p-2 align-items-center transparent-3" style="">
             <div class="col-2 text-center"><div class="w-50 black bg-info rounded-2 align-self-center">{{ partida.data_partida.date().day }}/{{ partida.data_partida.date().month }}/{{ partida.data_partida.date().year }}</div></div>
             <div class="col-2 text-center"><div class="w-50 black bg-light rounded-2 align-self-center">Grupo {{ partida.selecoes[0].grupo.nome_grupo }}</div></div>
@@ -200,7 +206,6 @@
                 </div>              
             </div>
         </div>
-            {% endif %}
         {% endfor %}
     </div>
 </div>
