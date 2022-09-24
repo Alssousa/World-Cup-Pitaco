@@ -2,13 +2,44 @@
 
 {% block body %}
 
-<div class="container font-monospace p-4" style="background-color: #130912e8;">
+<div class="container font-monospace p-0" style="background-color: #130912e8;">
+
+    <!--Slide Eventos e entre outros-->
+    <div class="row transparent-2 mx-0 mb-5 p-0 mt-1 justify-content-center" style="height: 300px;">
+        <div id="carouselExampleIndicators" class="carousel slide mx-0 px-0" data-bs-ride="true">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="col-12 carousel-inner" style="">
+                <div class="carousel-item active">
+                    <img src="{{ url_for('static', filename='img/banner1.png') }}" class="d-block w-100" alt="..." width="100%" height="300px">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='img/banner2.png') }}" class="d-block w-100" alt="..." width="100%" height="300px">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='img/banner3.png') }}" class="d-block w-100" alt="..." width="100%" height="300px">
+                </div>
+            </div>
+            <button class="carousel-control-prev transparent-3" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" style="width: 50px;">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next transparent-3" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style="width: 50px;">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
     <!--JOGOS DE HOJE-->
-    <div class="row mb-5">
+    <div class="row mb-5 px-2">
         <div class="col-12 font-monospace white"><h5>Jogos de Hoje</h5></div>
         {% for partida in partidas %}           
             {% if partida.data_partida.date() == data_atual.today().date() and partida.data_partida.time() > horas_meia_noite.time() and partida.status != "Finalizada" %} 
-        <div class="col-3 border rounded-2 bg-light p-2 shadow m-1 mb-3" style="height: 200px; width: 24%;">
+        <div class="col-xxl-3 col-sm-6 border rounded-2 bg-light p-2 shadow m-1 mb-3" style="">
             <div class="row">
                 <div class="col-12">
                     <p>Data: {{ partida.data_partida.day }}/{{ partida.data_partida.month }}/{{ partida.data_partida.year }}<br>Hora: {{ partida.data_partida.time() }}</p>
@@ -46,11 +77,11 @@
 
     <!--JOGOS DE AMANHÃ-->
 
-    <div class="row mb-5">
+    <div class="row mb-5 px-2">
         <div class="col-12 font-monospace white"><h5>Jogos de Amanhã</h5></div>
         {% for partida in partidas %}       
             {% if partida.data_partida.date() == (data_atual.today().date() + timedelta(1)) and partida.status != "Finalizada" %}
-        <div class="col-3 border rounded-2 bg-light p-2 shadow m-1 mb-3" style="height: 200px; width: 24%;">
+        <div class="col-xxl-3 col-xl-3 col-md-4 col-md-6 border rounded-2 bg-light p-2 shadow m-1 mb-3">
             <div class="row">
                 <div class="col-12">
                     <p>Data: {{ partida.data_partida.day }}/{{ partida.data_partida.month }}/{{ partida.data_partida.year }}<br>Hora: {{ partida.data_partida.time() }}</p>
@@ -88,11 +119,11 @@
 
     <!--JOGOS DA SEMANA-->
 
-    <div class="row mb-5">
+    <div class="row mb-5 px-2">
         <div class="col-12 font-monospace white"><h5>Outros Jogos da Semana</h5></div>
         {% for partida in partidas %}
             {% if partida.data_partida.date() >= (data_atual.today().date() + timedelta(2)) and partida.data_partida.date() < (data_atual.today().date() + timedelta(7)) %}
-        <div class="col-3 border rounded-2 bg-light p-2 shadow m-1 mb-3" style="height: 200px; width: 24%;">
+        <div class="col-xxl-3 col-xl-3 col-md-4 col-md-6 border rounded-2 bg-light p-2 shadow m-1 mb-3">
             <div class="row">
                 <div class="col-6">
                     <p>Data: {{ partida.data_partida.day }}/{{ partida.data_partida.month }}/{{ partida.data_partida.year }}<br>Hora: {{ partida.data_partida.time() }}</p>
@@ -126,7 +157,7 @@
     </div>
 
     <!-- Resultado dos ultimos jogos -->
-    <div class="row white m-2 pt-4 justify-content-center transparent-2" style="">
+    <div class="row white m-2 pt-4 justify-content-center transparent-2 px-3" style="">
         <div class="col-12"><h4 class="white">Últimos Jogos</h4></div>
         {% for partida in partidas %}
             {% if partida.status == 'Finalizada' %}
