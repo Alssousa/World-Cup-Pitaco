@@ -28,11 +28,11 @@
                                 <div class="col-11"><p class="m-0">{{ usuario.username }}</p></div>
                             </div>
                         </td>
-                        <td>0</td>
-                        <td class="align-self-center">0</td>
-                        <td class="align-self-center">0</td>
-                        <td class="align-self-center">0</td>
-                        <td class="align-self-center">0%</td>
+                        <td>{{ usuario.score }}</td>
+                        <td class="align-self-center">{{ usuario.acertos + usuario.erros }}</td>
+                        <td class="align-self-center">{{ usuario.acertos }}</td>
+                        <td class="align-self-center">{{ usuario.erros }}</td>
+                        <td class="align-self-center">{{ usuario.acertos / (usuario.acertos + usuario.erros) * 100 }}%</td>
                     </tr class="align-self-center">
                     {% endfor %}
                 </tbody>
