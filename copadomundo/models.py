@@ -17,6 +17,7 @@ class Usuario(database.Model, UserMixin):
     acertos = database.Column(database.Integer, default=0)
     erros = database.Column(database.Integer, default=0)
     admin = database.Column(database.String, default=False)
+    comentarios = database.relationship('Comentario', backref='usuario', lazy=True)
     
 
 partida_selecao = database.Table('partidas',
@@ -95,6 +96,7 @@ class Partida(database.Model):
     gol_casa = database.Column(database.Integer, default=0)
     gol_fora = database.Column(database.Integer, default=0)
     data_partida = database.Column(database.DateTime, default=datetime.now())
+    palpites = database.relationship('Palpite', backref='partida', lazy=True)
     status = database.Column(database.String, default="aguardando")
 
 class Grupo(database.Model):
@@ -115,7 +117,7 @@ class Palpite(database.Model):
     id_usuario = database.Column(database.Integer, database.ForeignKey('usuario.id'), nullable=False)
     id_partida = database.Column(database.Integer, database.ForeignKey('partida.id'), nullable=False)
     palpite = database.Column(database.String, nullable=False)
-    status = database.Column(database.String)
+    status = database.Column(database.String, default="Aguardando")
     
 
 
