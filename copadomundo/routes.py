@@ -160,14 +160,12 @@ def definir_resultado(id_partida):
     partida.gol_fora = formresultado.fora_gol.data
     selecao_casa = Selecao.query.get(partida.selecoes[0].id)
     selecao_fora = Selecao.query.get(partida.selecoes[1].id)
+    resultado = ''
     
     print(f"selecao casa: {selecao_casa.nome}, selecao fora: {selecao_fora.nome}")
     if formresultado.is_submitted():
-        print("teste")
         casa_gol = formresultado.casa_gol.data
-        print(f"gol: casa: {casa_gol}")
         fora_gol = formresultado.fora_gol.data
-        print(f"fol fora: {fora_gol}")
         status = formresultado.status.data
         
         selecao_casa.gols_marcado = casa_gol
@@ -178,22 +176,46 @@ def definir_resultado(id_partida):
         if casa_gol > fora_gol:
             selecao_casa.vitorias += 1
             selecao_casa.pontos += 3           
-            selecao_fora.derrotas += 1          
+            selecao_fora.derrotas += 1     
+            resultado = "casa"
         elif fora_gol > casa_gol:
             selecao_fora.vitorias += 1
             selecao_fora.pontos += 3           
             selecao_casa.derrotas += 1
+            resultado = "fora"           
         else:
-            print("touuuuuuuu aki")
             selecao_casa.pontos += 1
             selecao_fora.pontos += 1           
             selecao_fora.empates += 1
             selecao_casa.empates += 1
-                   
+            resultado = "empate"
+            
         try:
-            print("akiiii")
             database.session.add_all([selecao_casa, selecao_fora, partida])
             database.session.commit()
+            
+            #verificar os palpites da partida e validar cada um.
+            try:
+                users = []
+                if partida.palpites:
+                    for pitaco in partida.palpites:
+                        user = Usuario.query.get(pitaco.id_usuario)
+                        if pitaco.palpite == resultado:                      
+                            user.score += 1
+                            user.acertos += 1
+                            print(f"\nO usuario: {user.username} acertou o palpite\n")
+                        else:
+                            user.erros += 1
+                        users.append(user)
+
+                    database.session.add_all(users)
+                    database.session.commit()
+                    
+            except Exception as e:
+                print("Erro ao analisar os palpites dessa partida. ", e)
+                    
+                    
+            
             flash('Resultado definido com sucesso', 'alert-success')
             return redirect(url_for('todas_partidas'))
         except Exception as e:
@@ -202,9 +224,26 @@ def definir_resultado(id_partida):
     return render_template('tela_add_resultado.html', formresultado=formresultado, selecao_casa=selecao_casa, selecao_fora=selecao_fora)
 
 
-@app.route('/usuario/<partida>/palpite', methods=['GET', 'POST'])
+@app.route('/<usuario>/<partida>/<pitaco>', methods=['GET', 'POST'])
 @login_required
-def palpite(partida):
+def palpite(usuario, partida, pitaco):
+    usuario = Usuario.query.filter_by(username=usuario).first()
+    partida = Partida.query.get(partida)
+    palpite = Palpite()  
+    palpite.id_partida = partida.id
+    palpite.id_usuario = usuario.id
+    print(f"\n{pitaco}\n")
+    #Tenho que verificar se o valor do palpite: casa, empate e fora e verificar
+    if Partida.query.filter_by(id=partida.id).filter(Partida.palpites.any(id_usuario=usuario.id)).first() != None:
+        print(Partida.query.filter(Partida.palpites.any(id_usuario=usuario.id)).first())
+        flash('Não é possível efetuar mais de um palpite na mesma partida.', 'alert-danger')
+        return redirect(url_for('home'))
+    else:
+        palpite.palpite = pitaco
+        database.session.add(palpite)
+        database.session.commit()
+        flash('Seu palpite foi realizado com sucesso.', 'alert-success')
+        return redirect(url_for('home'))
     
     return render_template('home.html') 
 
