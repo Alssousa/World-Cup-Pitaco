@@ -1,7 +1,7 @@
 from copadomundo import app, bcrypt, database
 from flask import request, render_template, redirect, url_for, flash, jsonify, session
-from copadomundo.models import Usuario, Partida, Selecao, Palpite, Grupo
-from copadomundo.form import FormAddPartida, FormCadastro, FormLogin, FormDefinirResultado
+from copadomundo.models import Usuario, Partida, Selecao, Palpite, Grupo, Comentario
+from copadomundo.form import FormAddPartida, FormCadastro, FormLogin, FormDefinirResultado, FormComentario
 from flask_login import login_user, logout_user, current_user, login_required
 from collections import OrderedDict
 from datetime import datetime, date, timedelta
@@ -66,11 +66,6 @@ def login():
                 return redirect(url_for('login'))
     return render_template('tela_login.html', formlogin=formlogin)
 
-
-
-@app.route('/liga/ranking')
-def ranking_usuarios():
-    return render_template('ranking_usuario.html')
 
 
 @app.route('/selecoes/partida/addpartida', methods=['GET', 'POST'])
@@ -254,11 +249,24 @@ def fase_grupos():
     return render_template('tela_grupos.html', selecoes=selecoes, grupos=grupos, enumerate=enumerate)
 
 
-@app.route('/usuarios/ranking')
+@app.route('/usuarios/ranking', methods=['GET', 'POST'])
 def ranking():
-    usuarios = Usuario.query.all()
+    usuarios = Usuario.query.order_by(Usuario.score.desc()).all()
+    formcomentario = FormComentario()
+    comentarios = Comentario.query.all()
     
-    return render_template('tela_rank.html', usuarios=usuarios)
+    if formcomentario.validate_on_submit():
+        if current_user.is_authenticated:
+            comentario = Comentario(corpo=formcomentario.corpo.data, usuario=current_user)
+            database.session.add(comentario)
+            database.session.commit()
+            print("comentario efetuado com sucesso!")
+            return redirect(url_for('ranking'))
+        else:
+            print('redireciona krai')
+            return redirect(url_for('login'))
+    
+    return render_template('tela_rank.html', formcomentario=formcomentario, comentarios=comentarios, usuarios=usuarios, enumerate=enumerate)
 
 
 
