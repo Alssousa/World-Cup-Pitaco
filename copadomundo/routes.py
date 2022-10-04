@@ -1,5 +1,5 @@
 from copadomundo import app, bcrypt, database
-from flask import request, render_template, redirect, url_for, flash, jsonify
+from flask import request, render_template, redirect, url_for, flash, jsonify, session
 from copadomundo.models import Usuario, Partida, Selecao, Palpite, Grupo
 from copadomundo.form import FormAddPartida, FormCadastro, FormLogin, FormDefinirResultado
 from flask_login import login_user, logout_user, current_user, login_required
@@ -20,9 +20,6 @@ def home():
     
     partida = Partida.query.get(4)
     horas_meia_noite = datetime(data_atual.year, data_atual.month, data_atual.day, 00, 00, 00)
-    
-    print(horas_meia_noite)
-
     
     return render_template('home.html', partidas=partidas, data_atual=data_atual, horas_meia_noite=horas_meia_noite, timedelta=timedelta, datas_partidas=datas_partidas, str=str, partidas_finalizadas=partidas_finalizadas)
 
