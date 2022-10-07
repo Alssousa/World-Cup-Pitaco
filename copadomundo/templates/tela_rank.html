@@ -24,7 +24,7 @@
                         <td>{{ i + 1 }}</td>
                         <td class="align-self-center" style="width: 45%;">
                             <div class="row">
-                                <div class="col-1 nt"><img src="{{ url_for('static', filename='img/img_users/{}'.format(current_user.foto_user)) }}" style="border-radius: 50%;" alt="" width="30px" height="30px"></div>
+                                <div class="col-1 nt"><img src="{{ url_for('static', filename='img/img_users/{}'.format(usuario.foto_user)) }}" style="border-radius: 50%;" alt="" width="30px" height="30px"></div>
                                 <div class="col-11"><p class="m-0">{{ usuario.username }}</p></div>
                             </div>
                         </td>
@@ -32,7 +32,7 @@
                         <td class="align-self-center">{{ usuario.acertos + usuario.erros }}</td>
                         <td class="align-self-center">{{ usuario.acertos }}</td>
                         <td class="align-self-center">{{ usuario.erros }}</td>
-                        <td class="align-self-center">{{ usuario.acertos / (usuario.acertos + usuario.erros) * 100 }}%</td>
+                        <td class="align-self-center">{% if usuario.acertos + usuario.erros == 0 %}0%{% else %}{{ usuario.acertos / (usuario.acertos + usuario.erros) * 100 }}%{% endif %}</td>
                     </tr class="align-self-center">
                     {% endfor %}
                 </tbody>
@@ -56,7 +56,7 @@
                     </div>
                 {% else %}
                     <div class="col-xl-1">
-                        <img src="" width="80px" height="75px">
+                        <img src="{{ url_for('static', filename='img/img_users/default.png') }}" width="80px" height="75px">
                     </div>
                 {% endif %}
                 <div class="col-xl-11">
