@@ -1,7 +1,7 @@
 from copadomundo import app, bcrypt, database
 from flask import request, render_template, redirect, url_for, flash, jsonify, session
 from copadomundo.models import Usuario, Partida, Selecao, Palpite, Grupo, Comentario
-from copadomundo.form import FormAddPartida, FormCadastro, FormLogin, FormDefinirResultado, FormComentario
+from copadomundo.form import FormAddPartida, FormCadastro, FormLogin, FormDefinirResultado, FormComentario, FormPerfil
 from flask_login import login_user, logout_user, current_user, login_required
 from collections import OrderedDict
 from datetime import datetime, date, timedelta
@@ -192,11 +192,13 @@ def definir_resultado(id_partida):
                 if partida.palpites:
                     for pitaco in partida.palpites:
                         user = Usuario.query.get(pitaco.id_usuario)
-                        if pitaco.palpite == resultado:                      
+                        if pitaco.palpite == resultado:  
+                            pitaco.status = 'ganhou'                    
                             user.score += 1
                             user.acertos += 1
                             print(f"\nO usuario: {user.username} acertou o palpite\n")
                         else:
+                            pitaco.status = 'perdeu'
                             user.erros += 1
                         users.append(user)
 
@@ -268,6 +270,14 @@ def ranking():
     
     return render_template('tela_rank.html', formcomentario=formcomentario, comentarios=comentarios, usuarios=usuarios, enumerate=enumerate)
 
+
+@app.route('/<usuario>/perfil', methods=['GET', 'POST'])
+def perfil(usuario):
+    formperfil = FormPerfil()
+    palpites = Palpite.query.filter_by(id_usuario=current_user.id).all()
+    partidas = Partida.query.all()
+
+    return render_template('perfil.html', formperfil=formperfil, palpites=palpites, Partida=Partida)
 
 
 
