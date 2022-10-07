@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField, DateField, TimeField, IntegerField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField, DateField, TimeField, IntegerField, FileField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from copadomundo.models import Usuario
 
@@ -42,3 +42,8 @@ class FormLogin(FlaskForm):
 class FormComentario(FlaskForm):
     corpo = TextAreaField('Corpo do texto', validators=[Length(1, 300), DataRequired()])
     btn_submit_comentario = SubmitField("Comentar")
+    
+    
+class FormPerfil(FlaskForm):
+    foto_perfil = FileField("Alterar foto de perfil", validators=[FileAllowed(['jpg', 'jpeg', 'webp', 'png'])])
+    btn_submit = SubmitField("Confirmar Alteração")
