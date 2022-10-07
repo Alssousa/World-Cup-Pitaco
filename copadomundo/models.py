@@ -117,7 +117,7 @@ class Palpite(database.Model):
     id_usuario = database.Column(database.Integer, database.ForeignKey('usuario.id'), nullable=False)
     id_partida = database.Column(database.Integer, database.ForeignKey('partida.id'), nullable=False)
     palpite = database.Column(database.String, nullable=False)
-    status = database.Column(database.String, default="Aguardando")
+    status = database.Column(database.String, default="aguardando")
     
 
 
