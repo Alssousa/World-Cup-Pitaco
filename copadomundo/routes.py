@@ -5,6 +5,10 @@ from copadomundo.form import FormAddPartida, FormCadastro, FormLogin, FormDefini
 from flask_login import login_user, logout_user, current_user, login_required
 from collections import OrderedDict
 from datetime import datetime, date, timedelta
+import secrets
+import os
+from PIL import Image
+
 
 
 @app.route('/')
@@ -276,6 +280,17 @@ def perfil(usuario):
     formperfil = FormPerfil()
     palpites = Palpite.query.filter_by(id_usuario=current_user.id).all()
     partidas = Partida.query.all()
+    if formperfil.validate_on_submit():
+        if formperfil.foto_perfil.data:
+            print("\n\nDentro do form de alterar a foto de perfil.")
+            nome_img = salvar_img(formperfil.foto_perfil.data)
+            #current_user.username = current_user.username
+            #current_user.email = current_user.email
+            current_user.foto_user = nome_img
+            database.session.add(current_user)
+            database.session.commit()     
+        
+        return redirect(url_for('perfil', usuario=current_user))  
 
     return render_template('perfil.html', formperfil=formperfil, palpites=palpites, Partida=Partida)
 
@@ -287,3 +302,16 @@ def logout():
     logout_user()
     flash('Logout realizado com sucesso', 'alert-success')
     return redirect(url_for('home'))
+
+
+#FUNCTIONS
+def salvar_img(img):
+    codigo = secrets.token_hex(8)
+    nome, extensao = os.path.splitext(img.filename)
+    nome_arquivo = nome + codigo + extensao
+    dir_img = os.path.join(app.root_path, 'static/img/img_users', nome_arquivo)
+    len_img = (400, 400)
+    img_reduzida = Image.open(img)
+    img_reduzida.thumbnail(len_img)
+    img_reduzida.save(dir_img)
+    return nome_arquivo
