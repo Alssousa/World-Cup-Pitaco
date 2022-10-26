@@ -63,13 +63,13 @@
                 </div>
                 <div class="row align-items-center text-center font-monospace" >
                     <div class="col-4 p-1">
-                        <a href="{{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='casa') }}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Casa Vence</a>
+                        <a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='casa') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='casa') }} {% endif %}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Casa Vence</a>
                     </div>
                     <div class="col-4 m-0 p-0">
-                        <a href="{{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='empate') }}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Empate</a>
+                        <a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='empate') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='empate') }} {% endif %}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Empate</a>
                     </div>
                     <div class="col-4 p-1">
-                        <a href="{{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='fora') }}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Fora Vence</a>
+                        <a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='fora') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='fora') }} {% endif %}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Fora Vence</a>
                     </div>
                 </div>
             </div>
@@ -112,13 +112,13 @@
                 </div>
                 <div class="row align-items-center text-center font-monospace" >
                     <div class="col-4 p-1">
-                        <a href="{{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='casa') }}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Casa Vence</a>
+                        <a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='casa') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='casa') }} {% endif %}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Casa Vence</a>
                     </div>
                     <div class="col-4 m-0 p-0">
-                        <a href="{{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='empate') }}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Empate</a>
+                        <a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='empate') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='empate') }} {% endif %}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Empate</a>
                     </div>
                     <div class="col-4 p-1">
-                        <a href="{{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='fora') }}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Fora Vence</a>
+                        <a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='fora') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='fora') }} {% endif %}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Fora Vence</a>
                     </div>
                 </div>
             </div>
@@ -160,13 +160,13 @@
                 </div>
                 <div class="row align-items-center text-center font-monospace" >
                     <div class="col-4 p-1">
-                        <a href="{{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='casa') }}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Casa Vence</a>
+                        <a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='casa') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='casa') }} {% endif %}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Casa Vence</a>
                     </div>
                     <div class="col-4 m-0 p-0">
-                        <a href="{{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='empate') }}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Empate</a>
+                        <a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='empate') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='empate') }} {% endif %}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Empate</a>
                     </div>
                     <div class="col-4 p-1">
-                        <a href="{{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='fora') }}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Fora Vence</a>
+                        <a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='fora') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='fora') }} {% endif %}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Fora Vence</a>
                     </div>
                 </div>
             </div>
