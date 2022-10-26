@@ -172,6 +172,8 @@ def definir_resultado(id_partida):
         selecao_fora.gols_marcado = fora_gol
         selecao_casa.gols_sofrido += fora_gol
         selecao_fora.gols_sofrido += casa_gol
+        selecao_casa.qnt_jogos += 1   
+        selecao_fora.qnt_jogos += 1 
         
         if casa_gol > fora_gol:
             selecao_casa.vitorias += 1
