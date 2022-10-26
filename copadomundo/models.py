@@ -145,8 +145,6 @@ class Partida(database.Model):
                         print(f"\n{partida}\n")
                         selecao_casa.partidas.append(partida)
                         selecao_fora.partidas.append(partida)   
-                        selecao_casa.qnt_jogos += 1   
-                        selecao_fora.qnt_jogos += 1 
                         database.session.add_all([selecao_casa, selecao_fora])
                         database.session.commit()
                         print("\n\nPartida vinculada as selecoes")
