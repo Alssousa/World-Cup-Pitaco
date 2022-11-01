@@ -35,7 +35,6 @@ def home():
 @app.route('/usuario/novaconta', methods=['GET', 'POST'])
 def add_usuario():
     formcad = FormCadastro()
-    
     if formcad.validate_on_submit():
         username = formcad.username.data
         email = formcad.email.data
@@ -49,7 +48,7 @@ def add_usuario():
                 flash(f'Conta {user.username} criada com sucesso', 'alert-success')
                 return redirect(url_for('home'))
             else:
-                print("Email já esta em uso!")
+                flash('Email já está em uso!', 'alert-danger')
                 return redirect(url_for('add_usuario'))
 
     return render_template('tela_cad.html', formcad=formcad)
