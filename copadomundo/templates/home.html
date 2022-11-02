@@ -47,17 +47,19 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-5 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[0].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
-                    <div class="col-5 offset-2 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[1].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
+                    <div class="col-4 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[0].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
+                    <div class="col-4 offset-4 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[1].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
                 </div>
                 <div class="row align-items-center text-center mb-2 mt-1">
-                    <div class="col-5 p-0 m-0 text-truncate">
+                    <div class="col-4 p-0 m-0 text-truncate">
                         <h5 class="fw-semibold">{{ partida.selecoes[0].nome }}</h5>
                     </div>
+                    <div class="col-1"><h5>{{ partida.gol_casa }}</h5></div>
                     <div class="col-2">
                         <h4>X</h4>
                     </div>
-                    <div class="col-5 p-0 m-0 text-truncate">
+                    <div class="col-1"><h5>{{ partida.gol_fora}}</h5></div>
+                    <div class="col-4 p-0 m-0 text-truncate">
                         <h5 class="fw-semibold">{{ partida.selecoes[1].nome }}</h5>
                     </div>
                 </div>
@@ -100,13 +102,15 @@
                     <div class="col-5 offset-2 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[1].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
                 </div>
                 <div class="row align-items-center text-center mb-2 mt-1">
-                    <div class="col-5 p-0 m-0 text-truncate">
+                    <div class="col-4 p-0 m-0 text-truncate">
                         <h5 class="fw-semibold">{{ partida.selecoes[0].nome }}</h5>
                     </div>
+                    <div class="col-1"><h5>{{ partida.gol_casa }}</h5></div>
                     <div class="col-2">
                         <h4>X</h4>
                     </div>
-                    <div class="col-5 p-0 m-0 text-truncate">
+                    <div class="col-1"><h5>{{ partida.gol_fora}}</h5></div>
+                    <div class="col-4 p-0 m-0 text-truncate">
                         <h5 class="fw-semibold">{{ partida.selecoes[1].nome }}</h5>
                     </div>
                 </div>
@@ -148,13 +152,15 @@
                     <div class="col-5 offset-2 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[1].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
                 </div>
                 <div class="row align-items-center text-center mb-2 mt-1">
-                    <div class="col-5 p-0 m-0 text-truncate">
+                    <div class="col-4 p-0 m-0 text-truncate">
                         <h5 class="fw-semibold">{{ partida.selecoes[0].nome }}</h5>
                     </div>
+                    <div class="col-1"><h5>{{ partida.gol_casa }}</h5></div>
                     <div class="col-2">
                         <h4>X</h4>
                     </div>
-                    <div class="col-5 p-0 m-0 text-truncate">
+                    <div class="col-1"><h5>{{ partida.gol_fora}}</h5></div>
+                    <div class="col-4 p-0 m-0 text-truncate">
                         <h5 class="fw-semibold">{{ partida.selecoes[1].nome }}</h5>
                     </div>
                 </div>
