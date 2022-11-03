@@ -38,7 +38,8 @@ def add_usuario():
     if formcad.validate_on_submit():
         username = formcad.username.data
         email = formcad.email.data
-        senha = formcad.password.data
+        senha = bcrypt.generate_password_hash(formcad.password.data)
+        print('senha: ', senha)
 
         if username and email and senha:
             if not Usuario.query.filter_by(email=email).first():
@@ -61,16 +62,23 @@ def login():
         email = formlogin.email.data
         password = formlogin.password.data
         if email and password:
-            user = Usuario.query.filter_by(email=email, senha=password).first()
+            user = Usuario.query.filter_by(email=email).first()
             if user:
-                print("Login successful!")
-                flash(f'Seja bem vindo {user.username}', 'alert-success')
-                login_user(user)
-                return redirect(url_for('home'))
+                print(f'\nsenha: {password}')
+                if bcrypt.check_password_hash(user.senha, password):
+                    print("Login successful!")
+                    flash(f'Seja bem vindo {user.username}', 'alert-success')
+                    login_user(user)
+                    return redirect(url_for('home'))
+                else:
+                    flash('A senha está incorreta.', 'alert-danger')
+                    return redirect(url_for('login'))
             else:
                 print("Login failed!")
                 flash(f'Email ou senha incorreto.', 'alert-danger')
                 return redirect(url_for('login'))
+            
+    
     return render_template('tela_login.html', formlogin=formlogin)
 
 
