@@ -64,7 +64,6 @@ def login():
         if email and password:
             user = Usuario.query.filter_by(email=email).first()
             if user:
-                print(f'\nsenha: {password}')
                 if bcrypt.check_password_hash(user.senha, password):
                     print("Login successful!")
                     flash(f'Seja bem vindo {user.username}', 'alert-success')
