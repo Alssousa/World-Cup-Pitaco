@@ -1,6 +1,7 @@
 from copadomundo import database, login_manager
 from datetime import datetime
 from flask_login import UserMixin
+from copadomundo.raspagem import getPartidas
 
 
 @login_manager.user_loader
@@ -17,6 +18,7 @@ class Usuario(database.Model, UserMixin):
     acertos = database.Column(database.Integer, default=0)
     erros = database.Column(database.Integer, default=0)
     admin = database.Column(database.String, default=False)
+    comentarios = database.relationship('Comentario', backref='usuario', lazy=True)
     
 
 partida_selecao = database.Table('partidas',
@@ -95,7 +97,58 @@ class Partida(database.Model):
     gol_casa = database.Column(database.Integer, default=0)
     gol_fora = database.Column(database.Integer, default=0)
     data_partida = database.Column(database.DateTime, default=datetime.now())
+    palpites = database.relationship('Palpite', backref='partida', lazy=True)
     status = database.Column(database.String, default="aguardando")
+    
+    def cadastrar_partidas(self):
+        partidas = getPartidas()
+        for partida in partidas.values():
+            print(partida['selecoes'])
+            
+            selecoes = partida['selecoes'].split(' vs ')
+            
+            if selecoes[0] == 'Holanda':
+                selecoes[0] = 'Países Baixos'
+            elif selecoes[1] == 'Holanda':
+                selecoes[1] = 'Países Baixos'
+                
+            if selecoes[0] == 'Gales':
+                selecoes[0] = 'País de Gales'
+            elif selecoes[1] == 'Gales':
+                selecoes[1] = 'País de Gales'
+                
+            if selecoes[0] == 'Suiça':
+                selecoes[0] = 'Suíça'
+            elif selecoes[1] == 'Suiça':
+                selecoes[1] = 'Suíça'
+                
+            if selecoes[0] == 'Coréia do Sul':
+                selecoes[0] = 'Coreia do Sul'
+            elif selecoes[1] == 'Coréia do Sul':
+                selecoes[1] = 'Coreia do Sul'
+                
+            selecao_casa = Selecao.query.filter_by(nome=selecoes[0]).first()
+            selecao_fora = Selecao.query.filter_by(nome=selecoes[1]).first()
+            descricao = f"{selecao_casa.nome} x {selecao_fora.nome}"
+            partida = Partida(descricao=descricao, data_partida=partida['horario'])
+            
+            if selecao_casa.nome != selecao_fora.nome:
+                if not Partida.query.filter_by(descricao=descricao).first():
+                    try:
+                        database.session.add(partida)
+                        database.session.commit()
+                    except Exception as e:
+                        print("Erro ao criar a partida: " + str(e))
+                    
+                    if selecao_casa and selecao_fora:
+                        partida = Partida.query.filter_by(descricao=descricao).first()
+                        print(f"\n{partida}\n")
+                        selecao_casa.partidas.append(partida)
+                        selecao_fora.partidas.append(partida)   
+                        database.session.add_all([selecao_casa, selecao_fora])
+                        database.session.commit()
+                        print("\n\nPartida vinculada as selecoes")
+                    
 
 class Grupo(database.Model):
     id = database.Column(database.Integer, primary_key=True)
@@ -115,7 +168,7 @@ class Palpite(database.Model):
     id_usuario = database.Column(database.Integer, database.ForeignKey('usuario.id'), nullable=False)
     id_partida = database.Column(database.Integer, database.ForeignKey('partida.id'), nullable=False)
     palpite = database.Column(database.String, nullable=False)
-    status = database.Column(database.String)
+    status = database.Column(database.String, default="aguardando")
     
 
 

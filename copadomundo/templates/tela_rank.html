@@ -19,20 +19,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for usuario in usuarios %}
+                    {% for i, usuario in enumerate(usuarios) %}
                     <tr class="rt">
-                        <td>1</td>
+                        <td>{{ i + 1 }}</td>
                         <td class="align-self-center" style="width: 45%;">
                             <div class="row">
-                                <div class="col-1 nt"><img src="{{ url_for('static', filename='img/b1.png') }}" style="border-radius: 50%;" alt="" width="30px" height="30px"></div>
+                                <div class="col-1 nt"><img src="{{ url_for('static', filename='img/img_users/{}'.format(usuario.foto_user)) }}" style="border-radius: 50%;" alt="" width="30px" height="30px"></div>
                                 <div class="col-11"><p class="m-0">{{ usuario.username }}</p></div>
                             </div>
                         </td>
-                        <td>0</td>
-                        <td class="align-self-center">0</td>
-                        <td class="align-self-center">0</td>
-                        <td class="align-self-center">0</td>
-                        <td class="align-self-center">0%</td>
+                        <td>{{ usuario.score }}</td>
+                        <td class="align-self-center">{{ usuario.acertos + usuario.erros }}</td>
+                        <td class="align-self-center">{{ usuario.acertos }}</td>
+                        <td class="align-self-center">{{ usuario.erros }}</td>
+                        <td class="align-self-center">{% if usuario.acertos + usuario.erros == 0 %}0%{% else %}{{ usuario.acertos / (usuario.acertos + usuario.erros) * 100 }}%{% endif %}</td>
                     </tr class="align-self-center">
                     {% endfor %}
                 </tbody>
@@ -40,6 +40,66 @@
             </table>            
         </div>    
     </div>    
+
+    <!-- Seção de comentários -->
+    <div class="container white p-2">
+        <div class="row" style="margin-top: 100px;">
+            <h3>Comentários</h3>
+        </div>
+        <hr>
+        <form action="" method="POST" class="mb-5">
+            {{ formcomentario.csrf_token }}
+            <div class="row mt-4">
+                {% if current_user.is_authenticated %}
+                    <div class="col-xl-1">
+                        <img src="{{ url_for('static', filename='img/img_users/{}'.format(current_user.foto_user)) }}" width="80px" height="75px">
+                    </div>
+                {% else %}
+                    <div class="col-xl-1">
+                        <img src="{{ url_for('static', filename='img/img_users/default.png') }}" width="80px" height="75px">
+                    </div>
+                {% endif %}
+                <div class="col-xl-11">
+                    <div class="row p-0 m-0">
+                        {% if current_user.is_authenticated%}
+                            <div class="col-xl-12">
+                                {{ formcomentario.corpo(rows="3", class="mb-3 w-75", placeholder="Participe da discussão") }}
+                            </div>
+                        {% else %} 
+                            <div class="col-xl-12">
+                                {{ formcomentario.corpo(rows="3", class="mb-3 w-75", placeholder="Faça login para participar da discussão") }}
+                            </div>
+                        {% endif %}
+                        <div class="col-xl-12">
+                            {{ formcomentario.btn_submit_comentario(class="btn bg-primary", placeholder="Participe da discussão") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        {% for comentario in comentarios %}
+            {% if comentario %}
+                <div class="row mt-3 comentario ps-3">
+                    <div class="col-1 p-0 text-center">
+                        <img src="{{ url_for('static', filename='img/img_users/{}'.format(comentario.usuario.foto_user)) }}" width="40px" height="40px">
+                    </div>
+                    <div class="col-11 text-start p-0">
+                        <div class="col-12">
+                            <h6 class="fw-bold">{{ comentario.usuario.username }} {% if current_user.admin == 'True' %} <span class="rounded-2 bg-info px-2">Mod</span> {% endif %}</h6>
+                        </div>
+                        <div class="col-12">
+                            <div class="col-12">
+                                <h6>{{ comentario.corpo }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <hr>
+            {% endif %}
+        {% endfor %}
+    </div>
+
 </div>
 
 {% endblock %}

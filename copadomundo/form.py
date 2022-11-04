@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField, DateField, TimeField, IntegerField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField, DateField, TimeField, IntegerField, FileField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from copadomundo.models import Usuario
 
@@ -24,13 +24,13 @@ class FormDefinirResultado(FlaskForm):
 class FormCadastro(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=8, max=20, message='É necessário 8 ou mais caracteres')])
     btn_submit = SubmitField('Cadastrar')
     
-    def validate_email(self, email):
+    '''def validate_email(self, email):
         user = Usuario.query.filter_by(email=email.data).first()
         if user:
-            raise ValidationError('O email já esta em uso. Favor, tente outro email ou faça login para continuar')
+            raise ValidationError('O email já esta em uso. Favor, tente outro email ou faça login para continuar')'''
     
     
 class FormLogin(FlaskForm):
@@ -42,3 +42,8 @@ class FormLogin(FlaskForm):
 class FormComentario(FlaskForm):
     corpo = TextAreaField('Corpo do texto', validators=[Length(1, 300), DataRequired()])
     btn_submit_comentario = SubmitField("Comentar")
+    
+    
+class FormPerfil(FlaskForm):
+    foto_perfil = FileField("Alterar foto de perfil", validators=[FileAllowed(['jpg', 'jpeg', 'webp', 'png'])])
+    btn_submit = SubmitField("Confirmar Alteração")

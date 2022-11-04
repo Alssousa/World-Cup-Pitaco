@@ -16,8 +16,10 @@
                             <a class="" href="{{ url_for('login') }}"><li class="list-unstyled list-inline-item mx-2 fs-6">Login</li></a>
                             <a class="" href="{{ url_for('add_usuario') }}"><li class="list-unstyled list-inline-item mx-2 fs-6">Cadastra-se</li></a> 
                     {% else %}
+                        {% if current_user.admin == 'True' %}                            
                             <a class="" href="{{ url_for('add_partida') }}" ><li class="list-unstyled list-inline-item mx-2 fs-6">Adicionar Partida</li></a>
-                            <a class="" href=""><li class="list-unstyled list-inline-item mx-2 fs-6 align-self-center">{{ current_user.username }}</li></a>
+                        {% endif %}
+                            <a class="" href="{{ url_for('perfil', usuario=current_user.username) }}"><li class="list-unstyled list-inline-item mx-2 fs-6 align-self-center">{{ current_user.username }}</li></a>
                             <a class="m-2" href="{{ url_for('logout') }}"><li class="list-unstyled list-inline-item "><i class="bi bi-box-arrow-left fs-3" style="font-size: 20px !important;
                             "></i></li></a>  
                     {% endif%}

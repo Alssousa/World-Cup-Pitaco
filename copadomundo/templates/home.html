@@ -47,29 +47,31 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-5 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[0].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
-                    <div class="col-5 offset-2 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[1].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
+                    <div class="col-4 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[0].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
+                    <div class="col-4 offset-4 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[1].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
                 </div>
                 <div class="row align-items-center text-center mb-2 mt-1">
-                    <div class="col-5 p-0 m-0 text-truncate">
+                    <div class="col-4 p-0 m-0 text-truncate">
                         <h5 class="fw-semibold">{{ partida.selecoes[0].nome }}</h5>
                     </div>
+                    <div class="col-1"><h5>{{ partida.gol_casa }}</h5></div>
                     <div class="col-2">
                         <h4>X</h4>
                     </div>
-                    <div class="col-5 p-0 m-0 text-truncate">
+                    <div class="col-1"><h5>{{ partida.gol_fora}}</h5></div>
+                    <div class="col-4 p-0 m-0 text-truncate">
                         <h5 class="fw-semibold">{{ partida.selecoes[1].nome }}</h5>
                     </div>
                 </div>
                 <div class="row align-items-center text-center font-monospace" >
                     <div class="col-4 p-1">
-                        <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Casa Vence</a>
+                        <a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='casa') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='casa') }} {% endif %}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Casa Vence</a>
                     </div>
                     <div class="col-4 m-0 p-0">
-                        <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Empate</a>
+                        <a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='empate') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='empate') }} {% endif %}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Empate</a>
                     </div>
                     <div class="col-4 p-1">
-                        <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Fora Vence</a>
+                        <a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='fora') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='fora') }} {% endif %}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Fora Vence</a>
                     </div>
                 </div>
             </div>
@@ -78,7 +80,7 @@
             {% endif %}
         {% endfor %}
         {% if str(data_atual.today().date()) not in datas_partidas %}
-        <div class="col-12"><h4 class="white">Sem eventos previsto para hoje {{ data_atual.today().date() }} || {{ datas_partidas }}</h4></div>
+        <div class="col-12"><h4 class="white">Sem eventos previsto para hoje</h4></div>
         {% endif %}
     </div>
 
@@ -100,25 +102,27 @@
                     <div class="col-5 offset-2 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[1].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
                 </div>
                 <div class="row align-items-center text-center mb-2 mt-1">
-                    <div class="col-5 p-0 m-0 text-truncate">
+                    <div class="col-4 p-0 m-0 text-truncate">
                         <h5 class="fw-semibold">{{ partida.selecoes[0].nome }}</h5>
                     </div>
+                    <div class="col-1"><h5>{{ partida.gol_casa }}</h5></div>
                     <div class="col-2">
                         <h4>X</h4>
                     </div>
-                    <div class="col-5 p-0 m-0 text-truncate">
+                    <div class="col-1"><h5>{{ partida.gol_fora}}</h5></div>
+                    <div class="col-4 p-0 m-0 text-truncate">
                         <h5 class="fw-semibold">{{ partida.selecoes[1].nome }}</h5>
                     </div>
                 </div>
                 <div class="row align-items-center text-center font-monospace" >
                     <div class="col-4 p-1">
-                        <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Casa Vence</a>
+                        <a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='casa') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='casa') }} {% endif %}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Casa Vence</a>
                     </div>
                     <div class="col-4 m-0 p-0">
-                        <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Empate</a>
+                        <a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='empate') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='empate') }} {% endif %}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Empate</a>
                     </div>
                     <div class="col-4 p-1">
-                        <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Fora Vence</a>
+                        <a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='fora') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='fora') }} {% endif %}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Fora Vence</a>
                     </div>
                 </div>
             </div>
@@ -148,25 +152,27 @@
                     <div class="col-5 offset-2 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[1].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
                 </div>
                 <div class="row align-items-center text-center mb-2 mt-1">
-                    <div class="col-5 p-0 m-0 text-truncate">
+                    <div class="col-4 p-0 m-0 text-truncate">
                         <h5 class="fw-semibold">{{ partida.selecoes[0].nome }}</h5>
                     </div>
+                    <div class="col-1"><h5>{{ partida.gol_casa }}</h5></div>
                     <div class="col-2">
                         <h4>X</h4>
                     </div>
-                    <div class="col-5 p-0 m-0 text-truncate">
+                    <div class="col-1"><h5>{{ partida.gol_fora}}</h5></div>
+                    <div class="col-4 p-0 m-0 text-truncate">
                         <h5 class="fw-semibold">{{ partida.selecoes[1].nome }}</h5>
                     </div>
                 </div>
                 <div class="row align-items-center text-center font-monospace" >
                     <div class="col-4 p-1">
-                        <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Casa Vence</a>
+                        <a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='casa') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='casa') }} {% endif %}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Casa Vence</a>
                     </div>
                     <div class="col-4 m-0 p-0">
-                        <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Empate</a>
+                        <a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='empate') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='empate') }} {% endif %}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Empate</a>
                     </div>
                     <div class="col-4 p-1">
-                        <a href="" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Fora Vence</a>
+                        <a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='fora') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='fora') }} {% endif %}" class="btn btn-danger" style="font-size: 12px; max-height: 32px;">Fora Vence</a>
                     </div>
                 </div>
             </div>

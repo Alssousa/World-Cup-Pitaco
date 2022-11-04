@@ -17,24 +17,20 @@
         </div>
                 {% for partida in partidas %}            
                     {% if partida.data_partida.date() == data_partida %}
-                <div class="row mb-2 transparent-3 p-2" style="">
-                    <div class="col-12">
-                        <div class="row align-items-center">
-                            <div class="col-1 px-0 ps-1">Grupo {{ partida.selecoes[0].grupo.nome_grupo }}</div>
-                            <div class="col-1">{{ partida.data_partida.time() }}</div>
-                            <div class="col-3">{{ partida.selecoes[0].nome }} X {{ partida.selecoes[1].nome }}</div>
-                            <div class="col-5 offset-1">
-                                <div class="row justify-content-around text-center" style="width: 98%;">
-                                    <div class="col-4 px-0"><a href="" class="btn btn-success px-5 m-0">Casa</a></div>
-                                    <div class="col-4 px-0"><a href="" class="btn btn-warning px-5 m-0">Empate</a></div>
-                                    <div class="col-4 px-0"><a href="" class="btn btn-success px-5 m-0">Fora</a></div>
-                                </div>                                  
-                            </div>
-                            {% if current_user.admin == "True" %}
-                            <div class="col-1"><a href="{{ url_for('definir_resultado', id_partida=partida.id) }}" class="btn btn-danger bi-pencil-fill"></a></div>
-                            {% endif %}
-                        </div>
-                    </div>             
+                <div class="row mb-2 transparent-3 p-2 align-items-center d-xl-flex d-lg-flex d-md-flex d-sm-block" style="">
+                    <div class="col-xl-1 col-lg-1 col-md-1 px-0 ps-1 text-sm-center mb-sm-1">Grupo {{ partida.selecoes[0].grupo.nome_grupo }}</div>
+                    <div class="col-xl-1 col-lg-1 col-md-1 text-sm-center mb-sm-1">{{ partida.data_partida.time() }}</div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 text-sm-center mb-sm-1">{{ partida.selecoes[0].nome }} X {{ partida.selecoes[1].nome }}</div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-sm-center mb-sm-1">
+                        <div class="row justify-content-center align-center" style="width: 100%;">
+                            <div class="col-4 px-0 m-0"><a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='casa') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='casa') }} {% endif %}" class="btn btn-success px-5 m-0">Casa</a></div>
+                            <div class="col-4 px-0 m-0"><a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='empate') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='empate') }} {% endif %}" class="btn btn-warning px-5 m-0">Empate</a></div>
+                            <div class="col-4 px-0 m-0"><a href="{% if current_user.is_authenticated %} {{ url_for('palpite', usuario=current_user.username, partida=partida.id, pitaco='fora') }} {% else %} {{ url_for('palpite', usuario='None', partida=partida.id, pitaco='fora') }} {% endif %}" class="btn btn-success px-5 m-0">Fora</a></div>
+                        </div>                                  
+                    </div>
+                    {% if current_user.admin == "True" %}
+                    <div class="col-xl-1 col-lg-1 col-md-1 text-sm-center text-sm-center"><a href="{{ url_for('definir_resultado', id_partida=partida.id) }}" class="btn btn-danger bi-pencil-fill"></a></div>
+                    {% endif %}          
                 </div>           
                     {% endif %}
                 {% endfor %}
