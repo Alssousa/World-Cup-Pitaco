@@ -14,9 +14,6 @@ from PIL import Image
 
 @app.route('/')
 def home():
-    return render_template('teste.html')
-
-'''def home():
     if not Partida.query.get(5):
         teste = Partida()
         teste.cadastrar_partidas()
@@ -32,7 +29,7 @@ def home():
     partida = Partida.query.get(4)
     horas_meia_noite = datetime(data_atual.year, data_atual.month, data_atual.day, 00, 00, 00)
     
-    return render_template('home.html', partidas=partidas, data_atual=data_atual, horas_meia_noite=horas_meia_noite, timedelta=timedelta, datas_partidas=datas_partidas, str=str, partidas_finalizadas=partidas_finalizadas) '''
+    return render_template('home.html', partidas=partidas, data_atual=data_atual, horas_meia_noite=horas_meia_noite, timedelta=timedelta, datas_partidas=datas_partidas, str=str, partidas_finalizadas=partidas_finalizadas)
 
 @app.route('/usuario/novaconta', methods=['GET', 'POST'])
 def add_usuario():
