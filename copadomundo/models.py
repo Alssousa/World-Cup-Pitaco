@@ -102,6 +102,11 @@ class Partida(database.Model):
     
     def cadastrar_partidas(self):
         partidas = getPartidas()
+        
+        if not Selecao.query.get(36):
+            selecao = Selecao()
+            selecao.add_selecoes()
+        
         for partida in partidas.values():
             print(partida['selecoes'])
             
