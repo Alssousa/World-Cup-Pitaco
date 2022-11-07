@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 import os
-import urllib.par
+import urllib.parse
 
 params = urllib.parse.quote_plus("DRIVER={SQL Server};SERVER=worldcuppitaco-db.mysql.database.azure.com;DATABASE=worldcuppitaco;UID=worldcuppitaco;PWD=Copadomundo2022")
 
