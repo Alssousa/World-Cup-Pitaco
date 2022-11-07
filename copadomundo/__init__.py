@@ -2,19 +2,15 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-'''from sqlalchemy import create_engine
-from urllib.parse import quote_plus
+import os
+import urllib.par
 
-engine = create_engine("mysql+pymysql://%s:%s@worldcuppitaco-db.mysql.database.azure.com/worldcuppitaco"
-                   % (quote_plus("worldcuppitaco"),quote_plus("Copadomundo2022"))  
-                      )
-
-con = engine.connect()'''
+params = urllib.parse.quote_plus("DRIVER={SQL Server};SERVER=worldcuppitaco-db.mysql.database.azure.com;DATABASE=worldcuppitaco;UID=worldcuppitaco;PWD=Copadomundo2022")
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'C0P4_D0_MUND0_P1T4C0'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://worldcuppitaco@worldcuppitaco:Copadomundo2022@worldcuppitaco-db.mysql.database.azure.com/worldcuppitaco?ssl_ca=DigiCertGlobalRootG2.crt.pem'
+app.config['SQLALCHEMY_DATABASE_URI'] = "mssql+pyodbc:///?odbc_connect=%s" % params
 database = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
