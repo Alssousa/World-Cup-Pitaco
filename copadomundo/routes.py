@@ -14,6 +14,7 @@ from PIL import Image
 
 @app.route('/')
 def home():
+    session['page'] = 'home'
     if not Partida.query.get(5):
         teste = Partida()
         teste.cadastrar_partidas()
@@ -33,6 +34,7 @@ def home():
 
 @app.route('/usuario/novaconta', methods=['GET', 'POST'])
 def add_usuario():
+    session['page'] = 'cadastro_usuario'
     formcad = FormCadastro()
     if formcad.validate_on_submit():
         username = formcad.username.data
@@ -56,6 +58,7 @@ def add_usuario():
 
 @app.route('/usuario/login', methods=['GET', 'POST'])
 def login():
+    session['page'] = 'login'
     formlogin = FormLogin()
     if formlogin.validate_on_submit():
         email = formlogin.email.data
@@ -142,6 +145,7 @@ def selecoes(grupo):
 
 @app.route('/selecoes/partida/todas', methods=['POST', 'GET'])
 def todas_partidas():
+    session['page'] = 'todas_partidas'
     partidas = Partida.query.filter(Partida.status.not_like('Finalizada')).order_by(Partida.data_partida).all()
     datas_partidas = []
     data_atual = datetime.now()           
@@ -264,6 +268,7 @@ def palpite(usuario, partida, pitaco):
 
 @app.route('/selecao/grupos', methods=['GET', 'POST'])
 def fase_grupos():
+    session['page'] = 'classificacao'
     selecoes = Selecao.query.order_by(Selecao.pontos.desc(), Selecao.vitorias.desc(), Selecao.gols_sofrido).all()
     grupos = Grupo.query.all()
     
@@ -273,6 +278,7 @@ def fase_grupos():
 
 @app.route('/usuarios/ranking', methods=['GET', 'POST'])
 def ranking():
+    session['page'] = 'ranking_users'
     usuarios = Usuario.query.order_by(Usuario.score.desc()).all()
     formcomentario = FormComentario()
     comentarios = Comentario.query.all()
@@ -292,7 +298,9 @@ def ranking():
 
 
 @app.route('/<usuario>/perfil', methods=['GET', 'POST'])
+@login_required
 def perfil(usuario):
+    session['page'] = 'perfil'
     formperfil = FormPerfil()
     palpites = Palpite.query.filter_by(id_usuario=current_user.id).all()
     partidas = Partida.query.all()

@@ -8,7 +8,7 @@ body{background-repeat: no-repeat; background-attachment: fixed; background-size
 
 .transparent-3 {background-color: #1b0f1af6;}
 
-.white{color: white;}
+.white{color: white !important;}
 
 .black{color: rgb(0, 0, 0);}
 
@@ -31,9 +31,7 @@ body{background-repeat: no-repeat; background-attachment: fixed; background-size
     height: 500px;
     padding: 50px;
     border-radius: 15px;
-    box-shadow: 2px 2px 20px black;
-
-    
+    box-shadow: 2px 2px 20px black;   
 }
 
 .login input{
@@ -51,16 +49,12 @@ body{background-repeat: no-repeat; background-attachment: fixed; background-size
     display: flex;
     width: 90%;
     flex-direction: column;
-    
-    
 }
 
 .login h1{
     font-size: 30px;
     font-weight: 800;
     color: #730e2e;
-
-
 }
 
 .login img{
@@ -124,14 +118,14 @@ p a{
 }
 
 
-/*-----------------------END CSS DO GRUPOS--------------------------------------*/
-ul a{
-    color: #fff;
-    font-size: 14.5px;
-    padding-bottom: 18px;
+/*------------------------------END CSS DO GRUPOS---------------------------------*/
+
+
+@media screen and (max-width: 768px) {
+    body{height: 100%;}
 }
-ul a:hover{
-    border-bottom: #520118 solid 3px;
-    color: #9c163c;
-    transition: 0.2s;
+@media (max-width: 576px) {
+    #rank-table-clubs{max-width: 100%;}
+    #rank-table-clubs .table-gf, .table-gs, .table-gf-row, .table-gs-row, .selecao-nome{display: none;}
+    #rank-table-clubs .sele-info{width: 10% !important;}
 }

@@ -51,26 +51,26 @@
             {{ formcomentario.csrf_token }}
             <div class="row mt-4">
                 {% if current_user.is_authenticated %}
-                    <div class="col-xl-1">
-                        <img src="{{ url_for('static', filename='img/img_users/{}'.format(current_user.foto_user)) }}" width="80px" height="75px">
-                    </div>
+                <div class="col-1">
+                    <img src="{{ url_for('static', filename='img/img_users/{}'.format(current_user.foto_user)) }}" width="80px" height="75px">
+                </div>
                 {% else %}
-                    <div class="col-xl-1">
-                        <img src="{{ url_for('static', filename='img/img_users/default.png') }}" width="80px" height="75px">
-                    </div>
+                <div class="col-1">
+                    <img src="{{ url_for('static', filename='img/img_users/default.png') }}" width="80px" height="75px">
+                </div>
                 {% endif %}
-                <div class="col-xl-11">
+                <div class="col-11">
                     <div class="row p-0 m-0">
                         {% if current_user.is_authenticated%}
-                            <div class="col-xl-12">
+                            <div class="col-12">
                                 {{ formcomentario.corpo(rows="3", class="mb-3 w-75", placeholder="Participe da discussão") }}
                             </div>
                         {% else %} 
-                            <div class="col-xl-12">
+                            <div class="col-12">
                                 {{ formcomentario.corpo(rows="3", class="mb-3 w-75", placeholder="Faça login para participar da discussão") }}
                             </div>
                         {% endif %}
-                        <div class="col-xl-12">
+                        <div class="col-12">
                             {{ formcomentario.btn_submit_comentario(class="btn bg-primary", placeholder="Participe da discussão") }}
                         </div>
                     </div>

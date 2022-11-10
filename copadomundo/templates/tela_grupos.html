@@ -3,14 +3,14 @@
 {% block body %}
 
     
-    <div class="container font-monospace pt-5">
+    <div class="container font-monospace pt-5 pe-0">
         <div class="row mb-4"><div class="col-12"><h4 class="white">Classificação de Grupo</h4></div></div>
-        <div class="row p-2 row-cols-sm-1 row-cols-lg-2" style="background-color: #17181f;">     
+        <div class="row p-2 row-cols-1 row-cols-lg-2" id="rank-table-clubs" style="background-color: #17181f;">     
             {% for grupo in grupos %} 
             {% set aux = namespace(value=0) %}
-            <div class="col-6 ">                             
+            <div class="col-sm-12 col-lg-6">                             
                 <div class="grupo"><p href="">Grupo {{ grupo.nome_grupo }}</p></div>
-                <table class="table table-dark table-hover">
+                <table class="table table-dark table-hover w-100">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -18,10 +18,10 @@
                             <th>pts</th>
                             <th>jgs</th>
                             <th>vit</th>
-                            <th>emp</th>
-                            <th>der</th>
-                            <th>gf</th>
-                            <th>gs</th>
+                            <th class="table-emp">emp</th>
+                            <th class="table-der">der</th>
+                            <th class="table-gf">gf</th>
+                            <th class="table-gs">gs</th>
                             <th>sg</th>
                         </tr>
                     </thead>
@@ -32,19 +32,19 @@
 
                         <tr class="rt">                          
                             <td>{{ aux.value }}</td>                           
-                            <td class="align-self-center" style="width: 45%;">
+                            <td class="sele-info align-self-center" style="width: 45%;">
                                 <div class="row">
                                     <div class="col-2 nt"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(selecao.foto_selecao)) }}" alt="" width="20px" height="15px"></div>
-                                    <div class="col-10"><p class="m-0">{{ selecao.nome }}</p></div>
+                                    <div class="selecao-nome col-10"><p class="m-0">{{ selecao.nome }}</p></div>
                                 </div>
                             </td>
                             <td class="align-self-center">{{ selecao.pontos }}</td>
                             <td class="align-self-center">{{ selecao.qnt_jogos }}</td>
                             <td class="align-self-center">{{ selecao.vitorias }}</td>
-                            <td class="align-self-center">{{ selecao.empates }}</td>
-                            <td class="align-self-center">{{ selecao.derrotas }}</td>
-                            <td class="align-self-center">{{ selecao.gols_marcado }}</td>
-                            <td class="align-self-center">{{ selecao.gols_sofrido }}</td>
+                            <td class="table-emp-row align-self-center">{{ selecao.empates }}</td>
+                            <td class="table-der-row align-self-center">{{ selecao.derrotas }}</td>
+                            <td class="table-gf-row align-self-center">{{ selecao.gols_marcado }}</td>
+                            <td class="table-gs-row align-self-center">{{ selecao.gols_sofrido }}</td>
                             <td>{{ selecao.gols_marcado - selecao.gols_sofrido }}</td>
                         </tr class="align-self-center">
                     </tbody>                             
