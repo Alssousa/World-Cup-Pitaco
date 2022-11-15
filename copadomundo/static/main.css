@@ -121,11 +121,16 @@ p a{
 /*------------------------------END CSS DO GRUPOS---------------------------------*/
 
 
+
+/*---------------------------------RESPONSIVE-------------------------------------*/
+
 @media screen and (max-width: 768px) {
     body{height: 100%;}
 }
+
 @media (max-width: 576px) {
     #rank-table-clubs{max-width: 100%;}
-    #rank-table-clubs .table-gf, .table-gs, .table-gf-row, .table-gs-row, .selecao-nome{display: none;}
+    #rank-table-clubs .table-gf, .table-gs, .table-gf-row, .table-gs-row, .selecao-nome, .rank-user-erros-th, .rank-user-erros-td, .rank-user-acertos-th, .rank-user-acertos-td{display: none;}
     #rank-table-clubs .sele-info{width: 10% !important;}
+    .user-img{ width: 25px !important; height: 25px !important;}
 }

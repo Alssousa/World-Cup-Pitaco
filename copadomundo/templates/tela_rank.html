@@ -10,12 +10,12 @@
                 <thead>
                     <tr>
                         <th>pos</th>
-                        <th class="nt">Nome do usuario</th>
+                        <th class="">Nome do usuario</th>
                         <th>Pontos</th>
                         <th>Total de Jogos</th>
                         <th>Acertos</th>
-                        <th>Erros</th>                       
-                        <th>% acertos</th>
+                        <th class="rank-user-erros-th">Erros</th>                       
+                        <th class="rank-user-acertos-th">% acertos</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,16 +23,16 @@
                     <tr class="rt">
                         <td>{{ i + 1 }}</td>
                         <td class="align-self-center" style="width: 45%;">
-                            <div class="row">
-                                <div class="col-1 nt"><img src="{{ url_for('static', filename='img/img_users/{}'.format(usuario.foto_user)) }}" style="border-radius: 50%;" alt="" width="30px" height="30px"></div>
-                                <div class="col-11"><p class="m-0">{{ usuario.username }}</p></div>
+                            <div class="row row-cols-2 me-1 p-0">
+                                <div class="col-md-1 col-4 p-0 m-0"><img class="user-img" src="{{ url_for('static', filename='img/img_users/{}'.format(usuario.foto_user)) }}" style="border-radius: 50%;" alt="" width="30px" height="30px"></div>
+                                <div class="col-md-11 col-8 text-truncate p-0 m-0"><p class="m-0">{{ usuario.username }}</p></div>
                             </div>
                         </td>
                         <td>{{ usuario.score }}</td>
                         <td class="align-self-center">{{ usuario.acertos + usuario.erros }}</td>
                         <td class="align-self-center">{{ usuario.acertos }}</td>
-                        <td class="align-self-center">{{ usuario.erros }}</td>
-                        <td class="align-self-center">{% if usuario.acertos + usuario.erros == 0 %}0%{% else %}{{ usuario.acertos / (usuario.acertos + usuario.erros) * 100 }}%{% endif %}</td>
+                        <td class="align-self-center rank-user-erros-td">{{ usuario.erros }}</td>
+                        <td class="align-self-center rank-user-acertos-td">{% if usuario.acertos + usuario.erros == 0 %}0%{% else %}{{ usuario.acertos / (usuario.acertos + usuario.erros) * 100 }}%{% endif %}</td>
                     </tr class="align-self-center">
                     {% endfor %}
                 </tbody>
@@ -51,15 +51,15 @@
             {{ formcomentario.csrf_token }}
             <div class="row mt-4">
                 {% if current_user.is_authenticated %}
-                <div class="col-1">
+                <div class="col-md-1 col-3">
                     <img src="{{ url_for('static', filename='img/img_users/{}'.format(current_user.foto_user)) }}" width="80px" height="75px">
                 </div>
                 {% else %}
-                <div class="col-1">
+                <div class="col-md-1 col-3">
                     <img src="{{ url_for('static', filename='img/img_users/default.png') }}" width="80px" height="75px">
                 </div>
                 {% endif %}
-                <div class="col-11">
+                <div class="col-md-11 col-9">
                     <div class="row p-0 m-0">
                         {% if current_user.is_authenticated%}
                             <div class="col-12">
@@ -80,17 +80,15 @@
         {% for comentario in comentarios %}
             {% if comentario %}
                 <div class="row mt-3 comentario ps-3">
-                    <div class="col-1 p-0 text-center">
+                    <div class="col-md-1 col-3 p-0 text-center">
                         <img src="{{ url_for('static', filename='img/img_users/{}'.format(comentario.usuario.foto_user)) }}" width="40px" height="40px">
                     </div>
-                    <div class="col-11 text-start p-0">
-                        <div class="col-12">
-                            <h6 class="fw-bold">{{ comentario.usuario.username }} {% if current_user.admin == 'True' %} <span class="rounded-2 bg-info px-2">Mod</span> {% endif %}</h6>
-                        </div>
-                        <div class="col-12">
+                    <div class="col-md-11 col-9 text-start p-0">
+                        <div class="row row-cols-2">
                             <div class="col-12">
-                                <h6>{{ comentario.corpo }}</h6>
+                                <h6 class="fw-bold">{{ comentario.usuario.username }} {% if current_user.admin == 'True' %} <span class="rounded-2 bg-info px-2">Mod</span> {% endif %}</h6>
                             </div>
+                            <div class="col-12"><p class="text-break lh-base">{{ comentario.corpo }}</p></div>
                         </div>
                     </div>
                 </div>
