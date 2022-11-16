@@ -33,19 +33,19 @@
         <div class="col-12">
             <div class="row row-cols-4 mb-2 transparent-3 p-0 text-center">
                 <div class="col-2"><h6 class="fw-bold align-self-center">Data</h6></div>
-                <div class="col-3"><h6 class="fw-bold align-self-center">Partida</h6></div>
+                <div class="col-4"><h6 class="fw-bold align-self-center">Partida</h6></div>
                 <div class="col-2"><h6 class="fw-bold align-self-center">Palpite</h6></div>
-                <div class="col-2"><h6 class="fw-bold align-self-center">Situação</h6></div>
+                <div class="col-4"><h6 class="fw-bold align-self-center">Situação</h6></div>
             </div>
         </div>
         {% for palpite in palpites %}
         {% set partida = Partida.query.get(palpite.id_partida) %}
         <div class="col-12 mb-2">
             <div class="row row-cols-4 text-center">
-                <div class="col-2">00/00/0000</div>
-                <div class="col-3">{{ partida.descricao }}</div>
+                <div class="col-2 text-truncate p-0 m-0">00/00/0000</div>
+                <div class="col-4">{{ partida.descricao }}</div>
                 <div class="col-2">{{ palpite.palpite }}</div>
-                <div class="col-2"><h6 class="rounded-2 text-center align-self-center py-1 {% if palpite.status == 'Aguardando' %}bg-secondary{% elif palpite.status == 'ganhou' %}bg-success{% else %}bg-danger{% endif %} px-2">{{ palpite.status }}</h6></div>
+                <div class="col-md-2 col-4"><h6 class="rounded-2 text-center align-self-center py-1 {% if palpite.status == 'Aguardando' %}bg-secondary{% elif palpite.status == 'ganhou' %}bg-success{% else %}bg-danger{% endif %} px-2">{{ palpite.status }}</h6></div>
             </div>
         </div>       
         {% endfor %}
