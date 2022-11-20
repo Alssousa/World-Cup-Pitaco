@@ -9,9 +9,6 @@ import secrets
 import os
 from PIL import Image
 
-'''Modificar o models partida para que nao adicionar a cada selecao a quantidade de jogos na hora do cadastro mas sim na hora de finalizar a partida'''
-
-
 @app.route('/')
 def home():
     session['page'] = 'home'
