@@ -86,7 +86,7 @@
                     <div class="col-md-11 col-9 text-start p-0">
                         <div class="row row-cols-2">
                             <div class="col-12">
-                                <h6 class="fw-bold">{{ comentario.usuario.username }} {% if current_user.admin == 'True' %} <span class="rounded-2 bg-info px-2">Mod</span> {% endif %}</h6>
+                                <h6 class="fw-bold">{{ comentario.usuario.username }} {% if comentario.usuario.admin == 'True' %} <span class="rounded-2 bg-info px-2">Mod</span> {% endif %}</h6>
                             </div>
                             <div class="col-12"><p class="text-break lh-base">{{ comentario.corpo }}</p></div>
                         </div>
