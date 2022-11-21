@@ -242,22 +242,30 @@ def definir_resultado(id_partida):
 @app.route('/<usuario>/<partida>/<pitaco>', methods=['GET', 'POST'])
 @login_required
 def palpite(usuario, partida, pitaco):
+    
     usuario = Usuario.query.filter_by(username=usuario).first()
     partida = Partida.query.get(partida)
     palpite = Palpite()  
     palpite.id_partida = partida.id
     palpite.id_usuario = usuario.id
+    
+    dateteste = datetime.now()
     print(f"\n{pitaco}\n")
-    #Tenho que verificar se o valor do palpite: casa, empate e fora e verificar
-    if Partida.query.filter_by(id=partida.id).filter(Partida.palpites.any(id_usuario=usuario.id)).first() != None:
-        print(Partida.query.filter(Partida.palpites.any(id_usuario=usuario.id)).first())
-        flash('Não é possível efetuar mais de um palpite na mesma partida.', 'alert-danger')
-        return redirect(url_for('home'))
+
+    if partida.data_partida >= datetime.now():
+        #Tenho que verificar se o valor do palpite: casa, empate e fora e verificar
+        if Partida.query.filter_by(id=partida.id).filter(Partida.palpites.any(id_usuario=usuario.id)).first() != None:
+            print(Partida.query.filter(Partida.palpites.any(id_usuario=usuario.id)).first())
+            flash('Não é possível efetuar mais de um palpite na mesma partida.', 'alert-danger')
+            return redirect(url_for('home'))
+        else:
+            palpite.palpite = pitaco
+            database.session.add(palpite)
+            database.session.commit()
+            flash('Seu palpite foi realizado com sucesso.', 'alert-success')
+            return redirect(url_for('home'))
     else:
-        palpite.palpite = pitaco
-        database.session.add(palpite)
-        database.session.commit()
-        flash('Seu palpite foi realizado com sucesso.', 'alert-success')
+        flash('Não é possível realizar ações durante ou depois do evento.', 'alert-danger')
         return redirect(url_for('home'))
     
     return render_template('home.html') 

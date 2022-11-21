@@ -12,7 +12,7 @@
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
-            <div class="col-12 carousel-inner" style="">
+            <div class="col-12 carousel-inner">
                 <div class="carousel-item active">
                     <img src="{{ url_for('static', filename='img/banner1.png') }}" class="d-block w-100" alt="..." width="100%" height="300px">
                 </div>
@@ -194,10 +194,10 @@
     </div>
 
     <!-- Resultado dos ultimos jogos -->
-    <div class="row white m-2 pt-4 justify-content-center transparent-2 px-3" style="">
+    <div class="row white m-2 pt-4 justify-content-center transparent-2 px-3">
         <div class="col-12"><h4 class="white">Últimos Jogos</h4></div>
         {% for partida in partidas_finalizadas %}
-        <div class="row p-2 align-items-center transparent-3 mb-1" style="">
+        <div class="row p-2 align-items-center transparent-3 mb-1">
             <div class="col-2 text-center"><div class="w-50 black bg-info rounded-2 align-self-center">{{ partida.data_partida.date().day }}/{{ partida.data_partida.date().month }}/{{ partida.data_partida.date().year }}</div></div>
             <div class="col-2 text-center"><div class="w-50 black bg-light rounded-2 align-self-center">Grupo {{ partida.selecoes[0].grupo.nome_grupo }}</div></div>
             <div class="col-3 text-center">
