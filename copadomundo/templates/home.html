@@ -140,7 +140,7 @@
 
     <!--JOGOS DA SEMANA-->
     <div class="row mb-5 px-2">
-        <div class="col-12 font-monospace white"><h5>Outros Jogos da Semana</h5></div>
+        <div class="col-12 font-monospace white"><h5>Jogos Restantes da Semana</h5></div>
         {% set first_day = namespace(value=data_atual.today().date() + timedelta(2)) %}
         {% set last_day = namespace(value=data_atual.today().date() + timedelta(7)) %}
         {% for partida in partidas %}                 
