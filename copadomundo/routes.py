@@ -5,6 +5,7 @@ from copadomundo.form import FormAddPartida, FormCadastro, FormLogin, FormDefini
 from flask_login import login_user, logout_user, current_user, login_required
 from collections import OrderedDict
 from datetime import datetime, date, timedelta
+from pytz import timezone
 import secrets
 import os
 from PIL import Image
@@ -19,7 +20,8 @@ def home():
     partidas = Partida.query.filter(Partida.status.not_like('Finalizada')).order_by(Partida.data_partida).all()
     partidas_finalizadas = Partida.query.filter_by(status="Finalizada").order_by(Partida.data_partida).all()
     datas_partidas = []
-    data_atual = datetime.now()
+    fuso_horario = timezone('America/Sao_Paulo')
+    data_atual = datetime.now().astimezone(fuso_horario)
     for partida in partidas:
         datas_partidas.append(str(partida.data_partida.date()))
     datas_partidas = list(OrderedDict.fromkeys(datas_partidas))
