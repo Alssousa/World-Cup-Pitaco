@@ -251,10 +251,11 @@ def palpite(usuario, partida, pitaco):
     palpite.id_partida = partida.id
     palpite.id_usuario = usuario.id
     
-    dateteste = datetime.now()
+    fuso_horario = timezone('America/Sao_Paulo')
+    data_atual = datetime.now().astimezone(fuso_horario)
     print(f"\n{pitaco}\n")
 
-    if partida.data_partida.time() >= datetime.now().time():
+    if partida.data_partida.time() >= data_atual.time():
         #Tenho que verificar se o valor do palpite: casa, empate e fora e verificar
         if Partida.query.filter_by(id=partida.id).filter(Partida.palpites.any(id_usuario=usuario.id)).first() != None:
             print(Partida.query.filter(Partida.palpites.any(id_usuario=usuario.id)).first())
