@@ -254,7 +254,7 @@ def palpite(usuario, partida, pitaco):
     dateteste = datetime.now()
     print(f"\n{pitaco}\n")
 
-    if partida.data_partida >= datetime.now():
+    if partida.data_partida.time() >= datetime.now().time():
         #Tenho que verificar se o valor do palpite: casa, empate e fora e verificar
         if Partida.query.filter_by(id=partida.id).filter(Partida.palpites.any(id_usuario=usuario.id)).first() != None:
             print(Partida.query.filter(Partida.palpites.any(id_usuario=usuario.id)).first())
