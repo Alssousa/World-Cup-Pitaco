@@ -18,7 +18,7 @@ def home():
         teste.cadastrar_partidas()
         
     partidas = Partida.query.filter(Partida.status.not_like('Finalizada')).order_by(Partida.data_partida).all()
-    partidas_finalizadas = Partida.query.filter_by(status="Finalizada").order_by(Partida.data_partida).all()
+    partidas_finalizadas = Partida.query.filter_by(status="Finalizada").order_by(Partida.data_partida.desc()).all()
     datas_partidas = []
     fuso_horario = timezone('America/Sao_Paulo')
     data_atual = datetime.now().astimezone(fuso_horario)

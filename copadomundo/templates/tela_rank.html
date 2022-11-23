@@ -32,7 +32,11 @@
                         <td class="align-self-center">{{ usuario.acertos + usuario.erros }}</td>
                         <td class="align-self-center">{{ usuario.acertos }}</td>
                         <td class="align-self-center rank-user-erros-td">{{ usuario.erros }}</td>
-                        <td class="align-self-center rank-user-acertos-td">{% if usuario.acertos + usuario.erros == 0 %}0%{% else %}{{ usuario.acertos / (usuario.acertos + usuario.erros) * 100 }}%{% endif %}</td>
+                        {% if not usuario.acertos + usuario.erros == 0 %}
+                            {% set aproveitamento = namespace(value=usuario.acertos / (usuario.acertos + usuario.erros) * 100) %}   
+                        {% endif %}
+
+                        <td class="align-self-center rank-user-acertos-td">{% if usuario.acertos == 0 and usuario.erros == 0 %}0.00%{% else %}{{ "%.2f" % aproveitamento.value|float }}%{% endif %}</td>
                     </tr class="align-self-center">
                     {% endfor %}
                 </tbody>
