@@ -251,7 +251,7 @@ def palpite(usuario, partida, pitaco):
     palpite.id_partida = partida.id
     palpite.id_usuario = usuario.id
     
-    fuso_horario = timezone('America/Sao_Paulo')
+    fuso_horario = timezone('Europe/London')
     data_atual = datetime.now().astimezone(fuso_horario)
     partida.data_partida = partida.data_partida.astimezone(fuso_horario)
     print(f"\n{pitaco}\n")
