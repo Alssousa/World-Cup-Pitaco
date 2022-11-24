@@ -20,8 +20,8 @@ def home():
     partidas = Partida.query.filter(Partida.status.not_like('Finalizada')).order_by(Partida.data_partida).all()
     partidas_finalizadas = Partida.query.filter_by(status="Finalizada").order_by(Partida.data_partida.desc()).all()
     datas_partidas = []
-    fuso_horario = timezone('America/Sao_Paulo')
-    data_atual = datetime.now().astimezone(fuso_horario)
+    #fuso_horario = timezone('America/Sao_Paulo')
+    data_atual = datetime.now()
     for partida in partidas:
         datas_partidas.append(str(partida.data_partida.date()))
     datas_partidas = list(OrderedDict.fromkeys(datas_partidas))
@@ -251,13 +251,12 @@ def palpite(usuario, partida, pitaco):
     palpite.id_partida = partida.id
     palpite.id_usuario = usuario.id
     
-    fuso_horario_europe = timezone('Europe/London')
-    fuso_horario = timezone('America/Sao_Paulo')
-    data_atual = datetime.now().astimezone(fuso_horario)
-    partida.data_partida = partida.data_partida.astimezone(fuso_horario_europe)
+    #fuso_horario_europe = timezone('Europe/London')
+    #fuso_horario = timezone('America/Sao_Paulo')
+    data_atual = datetime.now()
     print(f"\n{pitaco}\n")
     
-    if partida.data_partida.astimezone(fuso_horario_europe) >= data_atual:
+    if partida.data_partida >= data_atual:
         #Tenho que verificar se o valor do palpite: casa, empate e fora e verificar
         if Partida.query.filter_by(id=partida.id).filter(Partida.palpites.any(id_usuario=usuario.id)).first() != None:
             print(Partida.query.filter(Partida.palpites.any(id_usuario=usuario.id)).first())
