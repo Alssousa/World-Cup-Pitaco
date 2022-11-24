@@ -254,6 +254,7 @@ def palpite(usuario, partida, pitaco):
     fuso_horario_europe = timezone('Europe/London')
     fuso_horario = timezone('America/Sao_Paulo')
     data_atual = datetime.now().astimezone(fuso_horario)
+    partida.data_partida = partida.data_partida.astimezone(fuso_horario_europe)
     print(f"\n{pitaco}\n")
     
     if partida.data_partida.astimezone(fuso_horario_europe) >= data_atual:
@@ -269,7 +270,7 @@ def palpite(usuario, partida, pitaco):
             flash('Seu palpite foi realizado com sucesso.', 'alert-success')
             return redirect(url_for('home'))
     else:
-        flash(f'Não é possível realizar ações durante ou depois do evento. Hora da partida:{partida.data_partida.astimezone(fuso_horario) } - Hora Sistema:{data_atual}', 'alert-danger')
+        flash(f'Não é possível realizar ações durante ou depois do evento. Hora da partida:{partida.data_partida} - Hora Sistema:{data_atual}', 'alert-danger')
         return redirect(url_for('home'))
     
     return render_template('home.html') 
