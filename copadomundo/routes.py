@@ -177,8 +177,8 @@ def definir_resultado(id_partida):
         status = formresultado.status.data
         
         if status != 'Em andamento':
-            selecao_casa.gols_marcado = casa_gol
-            selecao_fora.gols_marcado = fora_gol
+            selecao_casa.gols_marcado += casa_gol
+            selecao_fora.gols_marcado += fora_gol
             selecao_casa.gols_sofrido += fora_gol
             selecao_fora.gols_sofrido += casa_gol
             
