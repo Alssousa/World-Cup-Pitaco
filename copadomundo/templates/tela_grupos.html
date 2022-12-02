@@ -58,32 +58,36 @@
         </div>  
         <!--oitavas de final--> 
         <div class="row mb-2 mt-4"><div class="col-12"><h4 class="white">Oitavas de final</h4></div></div> 
+        {% for partida in partidas %}
+            {% if 'oitavas' in partida.descricao %}
         <div class="row mb-5 px-2">
             <div class=" col-md-12 col-sm-12 mb-3">
                 <div class="col-12 border rounded-2 p-2 shadow">
                     <div class="row">
                         <div class="col-12">
-                            <p class="white">data:</p>
+                            <p class="white">{{ partida.data_partida }}</p>
                         </div>
                     </div>
                     <div class="row justify-content-around">
-                        <div class="col-2 text-center"><img src="" alt="" width="60px" height="40px"></div>
+                        <div class="col-2 text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[0].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
                         <div class="col-2 p-0 m-0 text-truncate text-center">
-                            <h5 class="fw-semibold white">time1</h5>
+                            <h5 class="fw-semibold white">{{ partida.selecoes[0].nome }}</h5>
                         </div>
-                        <div class="col-1 text-center"><h5 class="white">0</h5></div>
+                        <div class="col-1 text-center"><h5 class="white">{{ partida.gol_casa }}</h5></div>
                         <div class="col-1 text-center">
                             <h4 class="white">X</h4>
                         </div>
-                        <div class="col-1 text-center"><h5 class="white">0</h5></div>
+                        <div class="col-1 text-center"><h5 class="white">{{ partida.gol_fora }}</h5></div>
                         <div class="col-2 p-0 m-0 text-truncate text-center">
-                            <h5 class="fw-semibold white">time2</h5>
+                            <h5 class="fw-semibold white">{{ partida.selecoes[1].nome }}</h5>
                         </div>
-                        <div class="col-2  text-center"><img src="" alt="" width="60px" height="40px"></div>
+                        <div class="col-2  text-center"><img src="{{ url_for('static', filename='img/img_bandeiras/{}'.format(partida.selecoes[1].foto_selecao)) }}" alt="" width="60px" height="40px"></div>
                     </div>                    
                 </div>
             </div>               
         </div>
+            {% endif %}
+        {% endfor %}
         <!------------------------------------------------------------------------------->
          <!--quartas de final--> 
          <div class="row mb-2 mt-4"><div class="col-12"><h4 class="white">Quartas de final</h4></div></div> 

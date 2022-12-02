@@ -88,15 +88,15 @@ def login():
 @login_required
 def add_partida():
     formaddpartida = FormAddPartida()
-    formaddpartida.selecao_casa.choices = [(selecao.id, selecao.nome) for selecao in Selecao.query.filter_by(id_grupo=1).all()]
-    formaddpartida.selecao_fora.choices = [(selecao.id, selecao.nome) for selecao in Selecao.query.filter_by(id_grupo=1).all()]
+    formaddpartida.selecao_casa.choices = [(selecao.id, selecao.nome) for selecao in Selecao.query.all()]
+    formaddpartida.selecao_fora.choices = [(selecao.id, selecao.nome) for selecao in Selecao.query.all()]
        
     if formaddpartida.is_submitted():
         selecao_casa = Selecao.query.get(formaddpartida.selecao_casa.data)
         selecao_fora = Selecao.query.get(formaddpartida.selecao_fora.data)
         data_partida = formaddpartida.data_partida.data
         hora_partida = formaddpartida.hora_partida.data
-        descricao = f"{selecao_casa.nome} x {selecao_fora.nome}"
+        descricao = f"{formaddpartida.etapa.data} {selecao_casa.nome} x {selecao_fora.nome}"
         data = datetime(data_partida.year, data_partida.month, data_partida.day, hora_partida.hour, hora_partida.minute, 0)
         partida = Partida(descricao=descricao, data_partida=data)
         
@@ -178,63 +178,95 @@ def definir_resultado(id_partida):
         status = formresultado.status.data
         
         if status != 'Em andamento':
-            selecao_casa.gols_marcado += casa_gol
-            selecao_fora.gols_marcado += fora_gol
-            selecao_casa.gols_sofrido += fora_gol
-            selecao_fora.gols_sofrido += casa_gol
-            
-            if casa_gol > fora_gol:
-                selecao_casa.vitorias += 1
-                selecao_casa.pontos += 3           
-                selecao_fora.derrotas += 1     
-                resultado = "casa"
-            elif fora_gol > casa_gol:
-                selecao_fora.vitorias += 1
-                selecao_fora.pontos += 3           
-                selecao_casa.derrotas += 1
-                resultado = "fora"           
-            else:
-                selecao_casa.pontos += 1
-                selecao_fora.pontos += 1           
-                selecao_fora.empates += 1
-                selecao_casa.empates += 1
-                resultado = "empate"
+            if 'oitavas' not in partida.descricao or 'quartas' not in partida.descricao or 'semi' not in partida.descricao or 'final' not in partida.descricao or 'terceiro' not in partida.descricao:
+                selecao_casa.gols_marcado += casa_gol
+                selecao_fora.gols_marcado += fora_gol
+                selecao_casa.gols_sofrido += fora_gol
+                selecao_fora.gols_sofrido += casa_gol
                 
-            try:
-                database.session.add_all([selecao_casa, selecao_fora, partida])
+                if casa_gol > fora_gol:
+                    selecao_casa.vitorias += 1
+                    selecao_casa.pontos += 3           
+                    selecao_fora.derrotas += 1     
+                    resultado = "casa"
+                elif fora_gol > casa_gol:
+                    selecao_fora.vitorias += 1
+                    selecao_fora.pontos += 3           
+                    selecao_casa.derrotas += 1
+                    resultado = "fora"           
+                else:
+                    selecao_casa.pontos += 1
+                    selecao_fora.pontos += 1           
+                    selecao_fora.empates += 1
+                    selecao_casa.empates += 1
+                    resultado = "empate"
+                
+                try:
+                    database.session.add_all([selecao_casa, selecao_fora, partida])
+                    database.session.commit()
+                    
+                    #verificar os palpites da partida e validar cada um.
+                    if status == 'Finalizada':
+                        selecao_casa.qnt_jogos += 1   
+                        selecao_fora.qnt_jogos += 1 
+                        try:
+                            users = []
+                            if partida.palpites:
+                                for pitaco in partida.palpites:
+                                    user = Usuario.query.get(pitaco.id_usuario)
+                                    if pitaco.palpite == resultado:  
+                                        pitaco.status = 'ganhou'                    
+                                        user.score += 1
+                                        user.acertos += 1
+                                        print(f"\nO usuario: {user.username} acertou o palpite\n")
+                                    else:
+                                        pitaco.status = 'perdeu'
+                                        user.erros += 1
+                                    users.append(user)
+
+                                database.session.add_all(users)
+                                database.session.commit()
+                                
+                        except Exception as e:
+                            print("Erro ao analisar os palpites dessa partida. ", e)
+                        flash('Partida finalizada com sucesso', 'alert-success')
+                    else:              
+                        flash('Resultado definido com sucesso', 'alert-success')
+                
+                    return redirect(url_for('todas_partidas'))
+                except Exception as e:
+                    print("Erro ao definir resultado da partida: " + str(e))
+            else:
+                database.session.add(partida)
                 database.session.commit()
                 
-                #verificar os palpites da partida e validar cada um.
-                if status == 'Finalizada':
-                    selecao_casa.qnt_jogos += 1   
-                    selecao_fora.qnt_jogos += 1 
-                    try:
-                        users = []
-                        if partida.palpites:
-                            for pitaco in partida.palpites:
-                                user = Usuario.query.get(pitaco.id_usuario)
-                                if pitaco.palpite == resultado:  
-                                    pitaco.status = 'ganhou'                    
-                                    user.score += 1
-                                    user.acertos += 1
-                                    print(f"\nO usuario: {user.username} acertou o palpite\n")
-                                else:
-                                    pitaco.status = 'perdeu'
-                                    user.erros += 1
-                                users.append(user)
+                if casa_gol > fora_gol: 
+                    resultado = "casa"
+                elif fora_gol > casa_gol:
+                    resultado = "fora"           
+                else:
+                    resultado = "empate"
+                    
+                try:
+                    users = []
+                    if partida.palpites:
+                        for pitaco in partida.palpites:
+                            user = Usuario.query.get(pitaco.id_usuario)
+                            if pitaco.palpite == resultado:  
+                                pitaco.status = 'ganhou'                    
+                                user.score += 1
+                                user.acertos += 1
+                                print(f"\nO usuario: {user.username} acertou o palpite\n")
+                            else:
+                                pitaco.status = 'perdeu'
+                                user.erros += 1
+                            users.append(user)
 
-                            database.session.add_all(users)
-                            database.session.commit()
-                            
-                    except Exception as e:
-                        print("Erro ao analisar os palpites dessa partida. ", e)
-                    flash('Partida finalizada com sucesso', 'alert-success')
-                else:              
-                    flash('Resultado definido com sucesso', 'alert-success')
+                        database.session.add_all(users)
+                        database.session.commit()
+                except Exception as e:
+                    print("Erro ao definir resultado da partida: " + str(e))
                 
-                return redirect(url_for('todas_partidas'))
-            except Exception as e:
-                print("Erro ao definir resultado da partida: " + str(e))
         else:
             database.session.add(partida)
             database.session.commit()
@@ -281,9 +313,9 @@ def fase_grupos():
     session['page'] = 'classificacao'
     selecoes = Selecao.query.order_by(Selecao.pontos.desc(), Selecao.vitorias.desc(), Selecao.gols_sofrido).all()
     grupos = Grupo.query.all()
+    partidas = Partida.query.all()
     
-    
-    return render_template('tela_grupos.html', selecoes=selecoes, grupos=grupos, enumerate=enumerate)
+    return render_template('tela_grupos.html', selecoes=selecoes, grupos=grupos, enumerate=enumerate, partidas=partidas)
 
 
 @app.route('/usuarios/ranking', methods=['GET', 'POST'])
