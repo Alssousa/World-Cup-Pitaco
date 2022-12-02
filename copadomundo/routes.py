@@ -13,6 +13,7 @@ from PIL import Image
 @app.route('/')
 def home():
     session['page'] = 'home'
+    
     if not Partida.query.get(5):
         teste = Partida()
         teste.cadastrar_partidas()
