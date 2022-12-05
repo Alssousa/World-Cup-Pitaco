@@ -159,7 +159,7 @@ def todas_partidas():
 
     return render_template('partidas.html', partidas=partidas, datas_partidas=datas_partidas, data_atual=data_atual)
 
-
+'''
 @app.route('/selecoes/partida/<id_partida>', methods=['GET', 'POST'])
 def definir_resultado(id_partida):
     formresultado = FormDefinirResultado()
@@ -270,6 +270,76 @@ def definir_resultado(id_partida):
         else:
             database.session.add(partida)
             database.session.commit()
+            
+    return render_template('tela_add_resultado.html', formresultado=formresultado, selecao_casa=selecao_casa, selecao_fora=selecao_fora)'''
+
+
+@app.route('/selecoes/partida-eliminatoria/<id_partida>', methods=['GET', 'POST'])
+def definir_resultado_eliminatoria(id_partida):
+    formresultado = FormDefinirResultado()
+    partida = Partida.query.get(id_partida)
+    partida.status = formresultado.status.data
+    partida.gol_casa = formresultado.casa_gol.data
+    partida.gol_fora = formresultado.fora_gol.data
+    selecao_casa = Selecao.query.get(partida.selecoes[0].id)
+    selecao_fora = Selecao.query.get(partida.selecoes[1].id)
+    resultado = ''
+    
+    print(f"selecao casa: {selecao_casa.nome}, selecao fora: {selecao_fora.nome}")
+    if formresultado.is_submitted():
+        casa_gol = formresultado.casa_gol.data
+        fora_gol = formresultado.fora_gol.data
+        status = formresultado.status.data
+        
+        if status != 'Em andamento':               
+            if casa_gol > fora_gol:  
+                resultado = "casa"
+            elif fora_gol > casa_gol:
+                resultado = "fora"           
+            else:
+                resultado = "empate"
+            
+            try:
+                database.session.add(partida)
+                database.session.commit()
+                
+                #verificar os palpites da partida e validar cada um.
+                if status == 'Finalizada':
+                    try:
+                        users = []
+                        if partida.palpites:
+                            for pitaco in partida.palpites:
+                                user = Usuario.query.get(pitaco.id_usuario)
+                                if pitaco.palpite == resultado:  
+                                    pitaco.status = 'ganhou'                    
+                                    user.score += 1
+                                    user.acertos += 1
+                                    print(f"\nO usuario: {user.username} acertou o palpite\n")
+                                else:
+                                    pitaco.status = 'perdeu'
+                                    user.erros += 1
+                                users.append(user)
+
+                            database.session.add_all(users)
+                            database.session.commit()
+                            
+                    except Exception as e:
+                        print("Erro ao analisar os palpites dessa partida. ", e)
+                    flash('Partida finalizada com sucesso', 'alert-success')
+                else:              
+                    flash('Resultado definido com sucesso', 'alert-success')
+            
+                return redirect(url_for('todas_partidas'))
+            except Exception as e:
+                print("Erro ao definir resultado da partida: " + str(e))
+        
+        else:
+            database.session.add(partida)
+            database.session.commit()
+                
+    else:
+        database.session.add(partida)
+        database.session.commit()
             
     return render_template('tela_add_resultado.html', formresultado=formresultado, selecao_casa=selecao_casa, selecao_fora=selecao_fora)
 
