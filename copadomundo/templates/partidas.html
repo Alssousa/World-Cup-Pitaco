@@ -29,7 +29,7 @@
                         </div>                                  
                     </div>
                     {% if current_user.admin == "True" %}
-                    <div class="col-xl-1 col-lg-1 col-md-1 text-sm-center text-sm-center"><a href="{{ url_for('definir_resultado_eliminatoria', id_partida=partida.id) }}" class="btn btn-danger bi-pencil-fill"></a></div>
+                    <div class="col-xl-1 col-lg-1 col-md-1 text-sm-center text-sm-center"><a href="{{ url_for('definir_resultado', id_partida=partida.id) }}" class="btn btn-danger bi-pencil-fill"></a></div>
                     {% endif %}          
                 </div>           
                     {% endif %}
